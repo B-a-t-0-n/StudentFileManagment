@@ -12,7 +12,6 @@ namespace StudentFileManagement.Infrastructure
 
         public DbSet<User> Users { get; set; }
         public DbSet<Subject> Subjects { get; set; }
-        public DbSet<Role> Roles { get; set; }
         public DbSet<LectureFiles> LectureFiles { get; set; }
         public DbSet<Lecture> Lectures { get; set; }
         public DbSet<InstitutionAndEducation> InstitutionAndEducations { get; set; }
@@ -23,7 +22,7 @@ namespace StudentFileManagement.Infrastructure
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(configuration.GetConnectionString(DATABASE));
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString(DATABASE));
             optionsBuilder.EnableSensitiveDataLogging();
 
         }

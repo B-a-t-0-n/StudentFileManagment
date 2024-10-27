@@ -5,6 +5,7 @@ using Telegram.Bot;
 using StudentFileManagment.Bot.Options;
 using StudentFileManagment.Bot.Features;
 using StudentFileManagment.Bot.Features.Handlers;
+using StudentFileManagment.Infrastructure;
 
 var builder = Host.CreateApplicationBuilder(args);
 builder.Services.AddHostedService<TelegramBotBackgroundService>();
@@ -15,6 +16,8 @@ builder.Services.AddTransient<ITelegramBotClient, TelegramBotClient>(serviceProv
 
     return new(token);
 });
+
+builder.Services.AddInfrastructure();
 
 builder.Services.AddTransient<IHandler<Message>, MessageHandler>();
 builder.Services.AddTransient<IHandler<CallbackQuery>, CallbackQueryHandler>();
@@ -27,3 +30,5 @@ host.Run();
 
 
 
+//Host=localhost;Port=5434;Database=student_file_managment;Username=postgres;Password=postgres
+//Server=(localdb)\\mssqllocaldb;Database=student_file_managment;Trusted_Connection=True;
