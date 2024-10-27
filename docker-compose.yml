@@ -1,0 +1,41 @@
+services:
+  postgres:
+    container_name: postgres_tg_bot
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: student_file_managment
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5434:5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+  seq:
+    image: datalust/seq:latest
+    container_name: seq_tg_bot
+    restart: always
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - 5341:5341
+      - 8081:80
+  minio:
+    container_name: minio_tg_bot
+    image: minio/minio
+    ports:
+      - 9000:9000
+      - 9001:9001
+    volumes:
+      - minio-data:/data
+    command: server --console-address ":9001" /data
+    restart: always
+  studentfilemanagment.bot:
+    image: ${DOCKER_REGISTRY-}studentfilemanagmentbot
+    build:
+      context: .
+      dockerfile: StudentFileManagment.Bot/Dockerfile
+
+volumes:
+  postgres-data:
+  minio-data:
