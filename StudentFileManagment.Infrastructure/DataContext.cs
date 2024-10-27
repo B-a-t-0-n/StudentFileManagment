@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using StudentFileManagement.Domain;
+using System.Text.RegularExpressions;
 using File = StudentFileManagement.Domain.File;
 
 namespace StudentFileManagement.Infrastructure 
@@ -30,6 +31,16 @@ namespace StudentFileManagement.Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(DataContext).Assembly);
+
+            modelBuilder.Entity<Institution>().HasData(
+                new Institution() { Id = Guid.NewGuid() , Name = "ВГЛТУ"}
+            );
+
+            modelBuilder.Entity<Education>().HasData(
+                new Education() { Id = Guid.NewGuid(), Name = "СПО"},
+                new Education() { Id = Guid.NewGuid(), Name = "Бакалавриат" },
+                new Education() { Id = Guid.NewGuid(), Name = "Магистратура" }
+            );
         }
     }
 

@@ -4,6 +4,6 @@
     {
         public Guid Id { get; set; }
         public string Path { get; set; } = default!;
-        public IEnumerable<LectureFiles>? LectureFiles { get; set; }
+        public LectureFiles LectureFiles { get; set; } = default!;
     }
 }
