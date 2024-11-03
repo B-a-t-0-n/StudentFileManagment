@@ -12,7 +12,7 @@ using StudentFileManagement.Infrastructure;
 namespace StudentFileManagment.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241027221407_Init")]
+    [Migration("20241103171454_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -38,6 +38,23 @@ namespace StudentFileManagment.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Educations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("29989ee1-ff22-44d0-9243-f5841d2f5beb"),
+                            Name = "СПО"
+                        },
+                        new
+                        {
+                            Id = new Guid("c253b784-3f92-4ef3-8514-a52e78345ec1"),
+                            Name = "Бакалавриат"
+                        },
+                        new
+                        {
+                            Id = new Guid("ae0744c9-f72f-471c-8b1a-5abd8ea98bea"),
+                            Name = "Магистратура"
+                        });
                 });
 
             modelBuilder.Entity("StudentFileManagement.Domain.EducationDirection", b =>
@@ -46,7 +63,7 @@ namespace StudentFileManagment.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("EducationId")
+                    b.Property<Guid>("InstitutionAndEducationId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -61,9 +78,35 @@ namespace StudentFileManagment.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EducationId");
+                    b.HasIndex("InstitutionAndEducationId");
 
                     b.ToTable("EducationDirections");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("4f9c4172-cd26-40fa-a71f-f916989d823e"),
+                            InstitutionAndEducationId = new Guid("a6aa4b03-f6e0-445d-a33d-3e307057cae5"),
+                            Name = "Информационные системы и программирование",
+                            NumberCources = 4,
+                            NumberSemesters = 2
+                        },
+                        new
+                        {
+                            Id = new Guid("7485b3cb-2a57-49d8-a2cd-fa83c63c39f9"),
+                            InstitutionAndEducationId = new Guid("57732f2a-1cf1-4943-ac79-ee682f73f89e"),
+                            Name = "Информационные системы и программирование",
+                            NumberCources = 4,
+                            NumberSemesters = 2
+                        },
+                        new
+                        {
+                            Id = new Guid("754b8afc-92d5-462c-abe6-bbd61d654ec4"),
+                            InstitutionAndEducationId = new Guid("6b3186cd-8597-43fe-8572-e995a5457a73"),
+                            Name = "Информационные системы и программирование",
+                            NumberCources = 4,
+                            NumberSemesters = 2
+                        });
                 });
 
             modelBuilder.Entity("StudentFileManagement.Domain.File", b =>
@@ -72,11 +115,16 @@ namespace StudentFileManagment.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("LectureFilesId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Path")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LectureFilesId");
 
                     b.ToTable("Files");
                 });
@@ -94,12 +142,22 @@ namespace StudentFileManagment.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Institutions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("cacd1011-4cfc-480e-9f81-3a168efa2f16"),
+                            Name = "ВГЛТУ"
+                        });
                 });
 
             modelBuilder.Entity("StudentFileManagement.Domain.InstitutionAndEducation", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("DirectionsId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("EducationId")
@@ -115,6 +173,29 @@ namespace StudentFileManagment.Infrastructure.Migrations
                     b.HasIndex("InstitutionId");
 
                     b.ToTable("InstitutionAndEducations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("a6aa4b03-f6e0-445d-a33d-3e307057cae5"),
+                            DirectionsId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            EducationId = new Guid("29989ee1-ff22-44d0-9243-f5841d2f5beb"),
+                            InstitutionId = new Guid("cacd1011-4cfc-480e-9f81-3a168efa2f16")
+                        },
+                        new
+                        {
+                            Id = new Guid("57732f2a-1cf1-4943-ac79-ee682f73f89e"),
+                            DirectionsId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            EducationId = new Guid("c253b784-3f92-4ef3-8514-a52e78345ec1"),
+                            InstitutionId = new Guid("cacd1011-4cfc-480e-9f81-3a168efa2f16")
+                        },
+                        new
+                        {
+                            Id = new Guid("6b3186cd-8597-43fe-8572-e995a5457a73"),
+                            DirectionsId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            EducationId = new Guid("ae0744c9-f72f-471c-8b1a-5abd8ea98bea"),
+                            InstitutionId = new Guid("cacd1011-4cfc-480e-9f81-3a168efa2f16")
+                        });
                 });
 
             modelBuilder.Entity("StudentFileManagement.Domain.Lecture", b =>
@@ -148,9 +229,6 @@ namespace StudentFileManagment.Infrastructure.Migrations
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("FileId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("LectureId")
                         .HasColumnType("uniqueidentifier");
 
@@ -158,8 +236,6 @@ namespace StudentFileManagment.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FileId");
 
                     b.HasIndex("LectureId");
 
@@ -222,13 +298,24 @@ namespace StudentFileManagment.Infrastructure.Migrations
 
             modelBuilder.Entity("StudentFileManagement.Domain.EducationDirection", b =>
                 {
-                    b.HasOne("StudentFileManagement.Domain.Education", "Education")
+                    b.HasOne("StudentFileManagement.Domain.InstitutionAndEducation", "InstitutionAndEducation")
                         .WithMany("Directions")
-                        .HasForeignKey("EducationId")
+                        .HasForeignKey("InstitutionAndEducationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Education");
+                    b.Navigation("InstitutionAndEducation");
+                });
+
+            modelBuilder.Entity("StudentFileManagement.Domain.File", b =>
+                {
+                    b.HasOne("StudentFileManagement.Domain.LectureFiles", "LectureFiles")
+                        .WithMany("File")
+                        .HasForeignKey("LectureFilesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("LectureFiles");
                 });
 
             modelBuilder.Entity("StudentFileManagement.Domain.InstitutionAndEducation", b =>
@@ -263,12 +350,6 @@ namespace StudentFileManagment.Infrastructure.Migrations
 
             modelBuilder.Entity("StudentFileManagement.Domain.LectureFiles", b =>
                 {
-                    b.HasOne("StudentFileManagement.Domain.File", "File")
-                        .WithMany("LectureFiles")
-                        .HasForeignKey("FileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("StudentFileManagement.Domain.Lecture", "Lecture")
                         .WithMany("Files")
                         .HasForeignKey("LectureId")
@@ -280,8 +361,6 @@ namespace StudentFileManagment.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("File");
 
                     b.Navigation("Lecture");
 
@@ -301,8 +380,6 @@ namespace StudentFileManagment.Infrastructure.Migrations
 
             modelBuilder.Entity("StudentFileManagement.Domain.Education", b =>
                 {
-                    b.Navigation("Directions");
-
                     b.Navigation("InstitutionAndEducation");
                 });
 
@@ -311,19 +388,24 @@ namespace StudentFileManagment.Infrastructure.Migrations
                     b.Navigation("Subjects");
                 });
 
-            modelBuilder.Entity("StudentFileManagement.Domain.File", b =>
-                {
-                    b.Navigation("LectureFiles");
-                });
-
             modelBuilder.Entity("StudentFileManagement.Domain.Institution", b =>
                 {
                     b.Navigation("InstitutionAndEducation");
                 });
 
+            modelBuilder.Entity("StudentFileManagement.Domain.InstitutionAndEducation", b =>
+                {
+                    b.Navigation("Directions");
+                });
+
             modelBuilder.Entity("StudentFileManagement.Domain.Lecture", b =>
                 {
                     b.Navigation("Files");
+                });
+
+            modelBuilder.Entity("StudentFileManagement.Domain.LectureFiles", b =>
+                {
+                    b.Navigation("File");
                 });
 
             modelBuilder.Entity("StudentFileManagement.Domain.Subject", b =>

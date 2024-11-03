@@ -6,6 +6,7 @@
         public string Name { get; set; } = default!;
         public int NumberCources { get; set; }
         public int NumberSemesters { get; set; }
+        public Guid InstitutionAndEducationId { get; set; }
         public InstitutionAndEducation InstitutionAndEducation { get; set; } = default!;
         public IEnumerable<Subject>? Subjects { get; set; }
     }
