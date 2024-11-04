@@ -27,8 +27,4 @@
     <ProjectReference Include="..\StudentFileManagment.Domain\StudentFileManagment.Domain.csproj" />
     <ProjectReference Include="..\StudentFileManagment.Infrastructure\StudentFileManagment.Infrastructure.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Features\Commands\" />
-  </ItemGroup>
 </Project>
