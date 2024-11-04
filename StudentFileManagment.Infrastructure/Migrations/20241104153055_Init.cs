@@ -3,8 +3,6 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace StudentFileManagment.Infrastructure.Migrations
 {
     /// <inheritdoc />
@@ -85,8 +83,6 @@ namespace StudentFileManagment.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NumberCources = table.Column<int>(type: "int", nullable: false),
-                    NumberSemesters = table.Column<int>(type: "int", nullable: false),
                     InstitutionAndEducationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -101,22 +97,58 @@ namespace StudentFileManagment.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Cources",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Number = table.Column<int>(type: "int", nullable: false),
+                    EducationDirectionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cources", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cources_EducationDirections_EducationDirectionId",
+                        column: x => x.EducationDirectionId,
+                        principalTable: "EducationDirections",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Semesters",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Number = table.Column<int>(type: "int", nullable: false),
+                    CourceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Semesters", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Semesters_Cources_CourceId",
+                        column: x => x.CourceId,
+                        principalTable: "Cources",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Subjects",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Cource = table.Column<int>(type: "int", nullable: false),
-                    Semester = table.Column<int>(type: "int", nullable: false),
-                    EducationDirectionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    SemesterId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Subjects", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Subjects_EducationDirections_EducationDirectionId",
-                        column: x => x.EducationDirectionId,
-                        principalTable: "EducationDirections",
+                        name: "FK_Subjects_Semesters_SemesterId",
+                        column: x => x.SemesterId,
+                        principalTable: "Semesters",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -186,40 +218,10 @@ namespace StudentFileManagment.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "Educations",
-                columns: new[] { "Id", "Name" },
-                values: new object[,]
-                {
-                    { new Guid("29989ee1-ff22-44d0-9243-f5841d2f5beb"), "СПО" },
-                    { new Guid("ae0744c9-f72f-471c-8b1a-5abd8ea98bea"), "Магистратура" },
-                    { new Guid("c253b784-3f92-4ef3-8514-a52e78345ec1"), "Бакалавриат" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Institutions",
-                columns: new[] { "Id", "Name" },
-                values: new object[] { new Guid("cacd1011-4cfc-480e-9f81-3a168efa2f16"), "ВГЛТУ" });
-
-            migrationBuilder.InsertData(
-                table: "InstitutionAndEducations",
-                columns: new[] { "Id", "DirectionsId", "EducationId", "InstitutionId" },
-                values: new object[,]
-                {
-                    { new Guid("57732f2a-1cf1-4943-ac79-ee682f73f89e"), new Guid("00000000-0000-0000-0000-000000000000"), new Guid("c253b784-3f92-4ef3-8514-a52e78345ec1"), new Guid("cacd1011-4cfc-480e-9f81-3a168efa2f16") },
-                    { new Guid("6b3186cd-8597-43fe-8572-e995a5457a73"), new Guid("00000000-0000-0000-0000-000000000000"), new Guid("ae0744c9-f72f-471c-8b1a-5abd8ea98bea"), new Guid("cacd1011-4cfc-480e-9f81-3a168efa2f16") },
-                    { new Guid("a6aa4b03-f6e0-445d-a33d-3e307057cae5"), new Guid("00000000-0000-0000-0000-000000000000"), new Guid("29989ee1-ff22-44d0-9243-f5841d2f5beb"), new Guid("cacd1011-4cfc-480e-9f81-3a168efa2f16") }
-                });
-
-            migrationBuilder.InsertData(
-                table: "EducationDirections",
-                columns: new[] { "Id", "InstitutionAndEducationId", "Name", "NumberCources", "NumberSemesters" },
-                values: new object[,]
-                {
-                    { new Guid("4f9c4172-cd26-40fa-a71f-f916989d823e"), new Guid("a6aa4b03-f6e0-445d-a33d-3e307057cae5"), "Информационные системы и программирование", 4, 2 },
-                    { new Guid("7485b3cb-2a57-49d8-a2cd-fa83c63c39f9"), new Guid("57732f2a-1cf1-4943-ac79-ee682f73f89e"), "Информационные системы и программирование", 4, 2 },
-                    { new Guid("754b8afc-92d5-462c-abe6-bbd61d654ec4"), new Guid("6b3186cd-8597-43fe-8572-e995a5457a73"), "Информационные системы и программирование", 4, 2 }
-                });
+            migrationBuilder.CreateIndex(
+                name: "IX_Cources_EducationDirectionId",
+                table: "Cources",
+                column: "EducationDirectionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_EducationDirections_InstitutionAndEducationId",
@@ -257,9 +259,14 @@ namespace StudentFileManagment.Infrastructure.Migrations
                 column: "SubjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Subjects_EducationDirectionId",
+                name: "IX_Semesters_CourceId",
+                table: "Semesters",
+                column: "CourceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Subjects_SemesterId",
                 table: "Subjects",
-                column: "EducationDirectionId");
+                column: "SemesterId");
         }
 
         /// <inheritdoc />
@@ -279,6 +286,12 @@ namespace StudentFileManagment.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Subjects");
+
+            migrationBuilder.DropTable(
+                name: "Semesters");
+
+            migrationBuilder.DropTable(
+                name: "Cources");
 
             migrationBuilder.DropTable(
                 name: "EducationDirections");

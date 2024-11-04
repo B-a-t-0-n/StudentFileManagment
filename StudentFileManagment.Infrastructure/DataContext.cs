@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using StudentFileManagement.Domain;
+using StudentFileManagment.Domain;
 using System.Text.RegularExpressions;
 using File = StudentFileManagement.Domain.File;
 
@@ -20,6 +21,8 @@ namespace StudentFileManagement.Infrastructure
         public DbSet<File> Files { get; set; }
         public DbSet<EducationDirection> EducationDirections { get; set; }
         public DbSet<Education> Educations { get; set; }
+        public DbSet<Cource> Cources { get; set; }
+        public DbSet<Semester> Semesters { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -56,23 +59,209 @@ namespace StudentFileManagement.Infrastructure
                 {
                     Id = Guid.NewGuid(),
                     Name = "Информационные системы и программирование",
-                    NumberCources = 4,
-                    NumberSemesters = 2,
-                    InstitutionAndEducationId = institutionAndEducationList[0].Id},
+                    InstitutionAndEducationId = institutionAndEducationList[0].Id,
+                },
                 new EducationDirection()
                 {
                     Id = Guid.NewGuid(),
                     Name = "Информационные системы и программирование",
-                    NumberCources = 4,
-                    NumberSemesters = 2,
                     InstitutionAndEducationId = institutionAndEducationList[1].Id},
                 new EducationDirection()
                 {
                     Id = Guid.NewGuid(),
                     Name = "Информационные системы и программирование",
-                    NumberCources = 4,
-                    NumberSemesters = 2,
                     InstitutionAndEducationId = institutionAndEducationList[2].Id,
+                },
+            };
+
+            var courceList = new List<Cource>()
+            {
+                new Cource()
+                {
+                    Id = Guid.NewGuid(),
+                    Number = 1,
+                    EducationDirectionId = educationDirectionList[0].Id,
+                },
+                new Cource()
+                {
+                    Id = Guid.NewGuid(),
+                    Number = 2,
+                    EducationDirectionId = educationDirectionList[0].Id,
+                },
+                new Cource()
+                {
+                    Id = Guid.NewGuid(),
+                    Number = 3,
+                    EducationDirectionId = educationDirectionList[0].Id,
+                },
+                new Cource()
+                {
+                    Id = Guid.NewGuid(),
+                    Number = 4,
+                    EducationDirectionId = educationDirectionList[0].Id,
+                },
+                new Cource()
+                {
+                    Id = Guid.NewGuid(),
+                    Number = 1,
+                    EducationDirectionId = educationDirectionList[1].Id,
+                },
+                new Cource()
+                {
+                    Id = Guid.NewGuid(),
+                    Number = 2,
+                    EducationDirectionId = educationDirectionList[1].Id,
+                },
+                new Cource()
+                {
+                    Id = Guid.NewGuid(),
+                    Number = 3,
+                    EducationDirectionId = educationDirectionList[1].Id,
+                },
+                new Cource()
+                {
+                    Id = Guid.NewGuid(),
+                    Number = 4,
+                    EducationDirectionId = educationDirectionList[1].Id,
+                },
+                new Cource()
+                {
+                    Id = Guid.NewGuid(),
+                    Number = 1,
+                    EducationDirectionId = educationDirectionList[2].Id,
+                },
+                new Cource()
+                {
+                    Id = Guid.NewGuid(),
+                    Number = 2,
+                    EducationDirectionId = educationDirectionList[2].Id,
+                }
+            };
+
+            var semesterList = new List<Semester>() 
+            {
+                new Semester()
+                {
+                    Id = Guid.NewGuid(),
+                    Number = 1,
+                    CourceId = courceList[0].Id,
+                },
+                new Semester()
+                {
+                    Id = Guid.NewGuid(),
+                    Number = 2,
+                    CourceId = courceList[0].Id,
+                },
+                new Semester()
+                {
+                    Id = Guid.NewGuid(),
+                    Number = 1,
+                    CourceId = courceList[1].Id,
+                },
+                new Semester()
+                {
+                    Id = Guid.NewGuid(),
+                    Number = 2,
+                    CourceId = courceList[1].Id,
+                },
+                new Semester()
+                {
+                    Id = Guid.NewGuid(),
+                    Number = 1,
+                    CourceId = courceList[2].Id,
+                },
+                new Semester()
+                {
+                    Id = Guid.NewGuid(),
+                    Number = 2,
+                    CourceId = courceList[2].Id,
+                },
+                new Semester()
+                {
+                    Id = Guid.NewGuid(),
+                    Number = 1,
+                    CourceId = courceList[3].Id,
+                },
+                new Semester()
+                {
+                    Id = Guid.NewGuid(),
+                    Number = 2,
+                    CourceId = courceList[3].Id,
+                },
+
+                new Semester()
+                {
+                    Id = Guid.NewGuid(),
+                    Number = 1,
+                    CourceId = courceList[4].Id,
+                },
+                new Semester()
+                {
+                    Id = Guid.NewGuid(),
+                    Number = 2,
+                    CourceId = courceList[4].Id,
+                },
+                new Semester()
+                {
+                    Id = Guid.NewGuid(),
+                    Number = 1,
+                    CourceId = courceList[5].Id,
+                },
+                new Semester()
+                {
+                    Id = Guid.NewGuid(),
+                    Number = 2,
+                    CourceId = courceList[5].Id,
+                },
+                new Semester()
+                {
+                    Id = Guid.NewGuid(),
+                    Number = 1,
+                    CourceId = courceList[6].Id,
+                },
+                new Semester()
+                {
+                    Id = Guid.NewGuid(),
+                    Number = 2,
+                    CourceId = courceList[6].Id,
+                },
+                new Semester()
+                {
+                    Id = Guid.NewGuid(),
+                    Number = 1,
+                    CourceId = courceList[7].Id,
+                },
+                new Semester()
+                {
+                    Id = Guid.NewGuid(),
+                    Number = 2,
+                    CourceId = courceList[7].Id,
+                },
+
+                new Semester()
+                {
+                    Id = Guid.NewGuid(),
+                    Number = 1,
+                    CourceId = courceList[8].Id,
+                },
+                new Semester()
+                {
+                    Id = Guid.NewGuid(),
+                    Number = 2,
+                    CourceId = courceList[8].Id,
+                },
+
+                new Semester()
+                {
+                    Id = Guid.NewGuid(),
+                    Number = 1,
+                    CourceId = courceList[9].Id,
+                },
+                new Semester()
+                {
+                    Id = Guid.NewGuid(),
+                    Number = 2,
+                    CourceId = courceList[9].Id,
                 },
             };
 
@@ -81,10 +270,8 @@ namespace StudentFileManagement.Infrastructure
                 new Subject()
                 {
                     Id = Guid.NewGuid(),
-                    Cource = 2,
-                    EducationDirectionId = educationDirectionList[0].Id,
-                    Semester = 1,
-                    Name = "Проектирование и дизайн информационных систем"
+                    Name = "Проектирование и дизайн информационных систем",
+                    SemesterId = semesterList[2].Id,
                 },
             };
 
@@ -92,6 +279,8 @@ namespace StudentFileManagement.Infrastructure
             modelBuilder.Entity<Education>().HasData(educationsList.ToArray());
             modelBuilder.Entity<InstitutionAndEducation>().HasData(institutionAndEducationList.ToArray());
             modelBuilder.Entity<EducationDirection>().HasData(educationDirectionList.ToArray());
+            modelBuilder.Entity<Cource>().HasData(courceList.ToArray());
+            modelBuilder.Entity<Semester>().HasData(semesterList.ToArray());
             modelBuilder.Entity<Subject>().HasData(subjectsList.ToArray());
         }
     }
