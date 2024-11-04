@@ -24,6 +24,9 @@ namespace StudentFileManagment.Bot.Features.Handlers
 
             switch (query.Data.Split(" ")[0])
             {
+                case "/Institution":
+                    await ChoosingInstitution(query, cancellationToken);
+                    return;
                 case "/Education":
                     await ChoosingEducation(query, cancellationToken);
                     return;
@@ -94,6 +97,21 @@ namespace StudentFileManagment.Bot.Features.Handlers
                         cancellationToken: cancellationToken);
         }
 
+        private async Task ChoosingInstitution(CallbackQuery query, CancellationToken cancellationToken)
+        { 
+            var institution = await _context.Institutions
+                .ToListAsync(cancellationToken: cancellationToken);
+
+            var buttonsData = institution.Select(i => (i.Name, i.Id));
+
+            await SendMessageAndCallbackButtons(
+                query,
+                "Выберите учебное заведение",
+                "/Education",
+                buttonsData,
+                cancellationToken);
+        }
+
         private async Task ChoosingEducation(CallbackQuery query, CancellationToken cancellationToken)
         {
             var parametrs = query.Data!.Split(" ")[1];
@@ -112,7 +130,7 @@ namespace StudentFileManagment.Bot.Features.Handlers
                 buttonsData,
                 cancellationToken,
                 addButtonBack: true,
-                buttonBackRoute: "/Education");
+                buttonBackRoute: "/Institution");
         }
 
         private async Task ChoosingEducationDirections(CallbackQuery query, CancellationToken cancellationToken)

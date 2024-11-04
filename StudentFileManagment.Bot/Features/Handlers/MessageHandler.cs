@@ -3,6 +3,7 @@ using Telegram.Bot.Types;
 using Telegram.Bot;
 using StudentFileManagement.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using StudentFileManagement.Domain;
 
 
 namespace StudentFileManagment.Bot.Features.Handlers
@@ -33,24 +34,13 @@ namespace StudentFileManagment.Bot.Features.Handlers
 
         private async Task Start(Message message, CancellationToken cancellationToken)
         {
-            var buttons = new List<List<InlineKeyboardButton>>();
+            InlineKeyboardMarkup inlineKeyboard = new(InlineKeyboardButton.WithCallbackData("Начать", "/Institution"));
 
-            var institutions = await _context.Institutions.ToListAsync();
-
-            foreach (var institution in institutions) 
-            {
-                var rowButtons = new List<InlineKeyboardButton>
-                {
-                    InlineKeyboardButton.WithCallbackData(institution.Name, $"/Education {institution.Id}")
-                };
-                buttons.Add(rowButtons);
-            }
-
-            InlineKeyboardMarkup inlineKeyboard = new(buttons);
+            var text = "Привет, я бот котрый хранит в себе лекции, хочешь начать пользоваться, нажми кнопку \"Начать\"";
 
             await _botClient.SendTextMessageAsync(
                 chatId: message.Chat.Id,
-                text: "Выберете учебное заведение",
+                text: text,
                 replyMarkup: inlineKeyboard,
                 cancellationToken: cancellationToken);
         }
