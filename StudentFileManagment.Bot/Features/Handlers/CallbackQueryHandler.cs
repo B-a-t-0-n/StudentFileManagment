@@ -42,6 +42,12 @@ namespace StudentFileManagment.Bot.Features.Handlers
                 case "/Subject":
                     await ChoosingSubject(query, cancellationToken);
                     return;
+                case "/Lecture":
+                    await ChoosingLecture(query, cancellationToken);
+                    return;
+                case "/AddLecture":
+                    await AddLecture(query, cancellationToken);
+                    return;
                 default:
                     await _botClient.AnswerCallbackQueryAsync(
                         callbackQueryId: query.Id,
@@ -49,6 +55,10 @@ namespace StudentFileManagment.Bot.Features.Handlers
                         cancellationToken: cancellationToken);
                     return;
             }
+        }
+
+        private async Task AddLecture(CallbackQuery query, CancellationToken cancellationToken)
+        {
         }
 
         private async Task SendMessageAndCallbackButtons(
@@ -59,7 +69,8 @@ namespace StudentFileManagment.Bot.Features.Handlers
             CancellationToken cancellationToken,
             bool addButtonBack = false,
             bool addButtonAdd = false,
-            string buttonBackRoute = "not")
+            string buttonBackRoute = "back",
+            string buttonAddRoute = "add")
         {
             if (query.Message is not { } message)
                 return;
@@ -82,7 +93,7 @@ namespace StudentFileManagment.Bot.Features.Handlers
             if (addButtonBack)
                 funcButtons.Add(InlineKeyboardButton.WithCallbackData("<---", buttonBackRoute));
             if (addButtonAdd)
-                funcButtons.Add(InlineKeyboardButton.WithCallbackData("[+]", "add"));
+                funcButtons.Add(InlineKeyboardButton.WithCallbackData("[+]", buttonAddRoute));
 
             buttons.Add(funcButtons);
 
@@ -230,11 +241,11 @@ namespace StudentFileManagment.Bot.Features.Handlers
         {
             var parametrs = query.Data!.Split(" ")[1];
 
-            var semesters = await _context.Subjects
+            var subjects = await _context.Subjects
                 .Where(s => s.SemesterId.ToString() == parametrs)
                 .ToListAsync(cancellationToken: cancellationToken);
 
-            var buttonsData = semesters.Select(i => (i.Name.ToString(), i.Id));
+            var buttonsData = subjects.Select(i => (i.Name.ToString(), i.Id));
 
             var semester = await _context.Semesters.FirstOrDefaultAsync(s => s.Id.ToString() == parametrs);
             if (semester == null)
@@ -255,6 +266,39 @@ namespace StudentFileManagment.Bot.Features.Handlers
                 cancellationToken,
                 addButtonBack: true,
                 buttonBackRoute: $"/Semester {semester.CourceId}");
+        }
+
+        private async Task ChoosingLecture(CallbackQuery query, CancellationToken cancellationToken)
+        {
+            var parametrs = query.Data!.Split(" ")[1];
+
+            var lectures = await _context.Lectures
+                .Include(l => l.Subject)
+                .Where(l => l.Subject.Id.ToString() == parametrs)
+                .ToListAsync(cancellationToken: cancellationToken);
+
+            var buttonsData = lectures.OrderBy(i => i.Date).Select(i => ($"Дата: {i.Date}", i.Id));
+
+            var subject = await _context.Subjects.FirstOrDefaultAsync(s => s.Id.ToString() == parametrs);
+            if (subject == null)
+            {
+                await _botClient.AnswerCallbackQueryAsync(
+                        callbackQueryId: query.Id,
+                        "ошибка",
+                        cancellationToken: cancellationToken);
+                //log
+                return;
+            }
+
+            await SendMessageAndCallbackButtons(
+                query,
+                "Выберите лекцию",
+                "/LectureFiles",
+                buttonsData,
+                cancellationToken,
+                addButtonBack: true,
+                buttonBackRoute: $"/Subject {subject.SemesterId}",
+                addButtonAdd: true);
         }
 
     }

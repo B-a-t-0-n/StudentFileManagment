@@ -2,8 +2,6 @@
 using Telegram.Bot.Types;
 using Telegram.Bot;
 using StudentFileManagement.Infrastructure;
-using Microsoft.EntityFrameworkCore;
-using StudentFileManagement.Domain;
 
 
 namespace StudentFileManagment.Bot.Features.Handlers
@@ -28,8 +26,6 @@ namespace StudentFileManagment.Bot.Features.Handlers
                     break;
 
             }
-
-            
         }
 
         private async Task Start(Message message, CancellationToken cancellationToken)

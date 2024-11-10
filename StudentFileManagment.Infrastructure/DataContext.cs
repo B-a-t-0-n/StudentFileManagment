@@ -130,7 +130,7 @@ namespace StudentFileManagement.Infrastructure
                     Number = 1,
                     EducationDirectionId = educationDirectionList[2].Id,
                 },
-                new Cource()
+                new()
                 {
                     Id = Guid.NewGuid(),
                     Number = 2,
@@ -138,82 +138,82 @@ namespace StudentFileManagement.Infrastructure
                 }
             };
 
-            var semesterList = new List<Semester>() 
+            var semesterList = new List<Semester>()
             {
-                new Semester()
+                new()
                 {
                     Id = Guid.NewGuid(),
                     Number = 1,
                     CourceId = courceList[0].Id,
                 },
-                new Semester()
+                new()
                 {
                     Id = Guid.NewGuid(),
                     Number = 2,
                     CourceId = courceList[0].Id,
                 },
-                new Semester()
+                new()
                 {
                     Id = Guid.NewGuid(),
                     Number = 1,
                     CourceId = courceList[1].Id,
                 },
-                new Semester()
+                new()
                 {
                     Id = Guid.NewGuid(),
                     Number = 2,
                     CourceId = courceList[1].Id,
                 },
-                new Semester()
+                new()
                 {
                     Id = Guid.NewGuid(),
                     Number = 1,
                     CourceId = courceList[2].Id,
                 },
-                new Semester()
+                new()
                 {
                     Id = Guid.NewGuid(),
                     Number = 2,
                     CourceId = courceList[2].Id,
                 },
-                new Semester()
+                new()
                 {
                     Id = Guid.NewGuid(),
                     Number = 1,
                     CourceId = courceList[3].Id,
                 },
-                new Semester()
+                new()
                 {
                     Id = Guid.NewGuid(),
                     Number = 2,
                     CourceId = courceList[3].Id,
                 },
 
-                new Semester()
+                new()
                 {
                     Id = Guid.NewGuid(),
                     Number = 1,
                     CourceId = courceList[4].Id,
                 },
-                new Semester()
+                new()
                 {
                     Id = Guid.NewGuid(),
                     Number = 2,
                     CourceId = courceList[4].Id,
                 },
-                new Semester()
+                new()
                 {
                     Id = Guid.NewGuid(),
                     Number = 1,
                     CourceId = courceList[5].Id,
                 },
-                new Semester()
+                new()
                 {
                     Id = Guid.NewGuid(),
                     Number = 2,
                     CourceId = courceList[5].Id,
                 },
-                new Semester()
+                new()
                 {
                     Id = Guid.NewGuid(),
                     Number = 1,

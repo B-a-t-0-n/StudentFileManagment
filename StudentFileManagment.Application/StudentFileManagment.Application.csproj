@@ -7,7 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\StudentFileManagment.Infrastructure\StudentFileManagment.Infrastructure.csproj" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\StudentFileManagment.Domain\StudentFileManagment.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Institution\" />
   </ItemGroup>
 
 </Project>
