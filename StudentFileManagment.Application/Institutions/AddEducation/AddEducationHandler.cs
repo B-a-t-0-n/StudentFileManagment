@@ -30,13 +30,13 @@ namespace StudentFileManagment.Application.Institutions.AddEducation
         public async Task<Result<Guid, Error>> Handle(AddEducationCommand command, CancellationToken cancellationToken = default)
         {
             var institutionExists = await _institutionRepository.GetById(command.InstitutionId, cancellationToken);
-            if (institutionExists.IsSuccess)
+            if (institutionExists.IsFailure)
             {
-                return Error.Failure("institution.already.exists", $"institution already exists for id {command.InstitutionId}");
+                return Error.NotFound("institutionExists.not.found", $"institutionExists not found for id {command.InstitutionId}");
             }
 
             var educationExists = await _educationRepository.GetById(command.EduvationId, cancellationToken);
-            if (educationExists.IsSuccess)
+            if (educationExists.IsFailure)
             {
                 return Error.Failure("education.already.exists", $"education already exists for id {command.EduvationId}");
             }
@@ -58,6 +58,4 @@ namespace StudentFileManagment.Application.Institutions.AddEducation
             return institutionAndEducation.Id;
         }
     }
-
-    public record AddEducationCommand(Guid InstitutionId, Guid EduvationId);
 }
