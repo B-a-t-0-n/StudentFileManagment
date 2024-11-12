@@ -15,7 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Institution\" />
+    <Folder Include="EducationDirections\Creaate\" />
+    <Folder Include="EducationDirections\AddCousce\" />
+    <Folder Include="EducationDirections\AddSemester\" />
+    <Folder Include="Subjects\Create\" />
   </ItemGroup>
 
 </Project>

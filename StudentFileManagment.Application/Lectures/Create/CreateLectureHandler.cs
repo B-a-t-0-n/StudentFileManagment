@@ -24,6 +24,9 @@ namespace StudentFileManagment.Application.Lectures.Create
 
         public async Task<Result<Guid, Error>> Handle(CreateLectureCommand command, CancellationToken cancellationToken = default)
         {
+            var subject = new Subject();
+            ////////////////////
+
             var lectureExists = await _lectureRepository.GetByDate(command.Date, cancellationToken);
             if (lectureExists.IsSuccess)
             {
@@ -34,7 +37,7 @@ namespace StudentFileManagment.Application.Lectures.Create
             {
                 Id = new Guid(),
                 Date = command.Date,
-                
+                Subject = subject,
             };
 
             await _lectureRepository.Add(lecture, cancellationToken);

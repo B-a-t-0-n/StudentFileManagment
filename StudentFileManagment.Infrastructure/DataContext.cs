@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using StudentFileManagement.Domain;
 using StudentFileManagment.Domain;
-using System.Text.RegularExpressions;
 using File = StudentFileManagement.Domain.File;
 
 namespace StudentFileManagement.Infrastructure
@@ -26,7 +24,7 @@ namespace StudentFileManagement.Infrastructure
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(configuration.GetConnectionString(DATABASE));
+            optionsBuilder.UseNpgsql(configuration.GetConnectionString(DATABASE));
             optionsBuilder.EnableSensitiveDataLogging();
         }
 

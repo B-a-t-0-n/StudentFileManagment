@@ -17,7 +17,7 @@ builder.Services.AddTransient<ITelegramBotClient, TelegramBotClient>(serviceProv
     return new(token);
 });
 
-builder.Services.AddInfrastructure();
+//builder.Services.AddInfrastructure();
 
 builder.Services.AddTransient<IHandler<Message>, MessageHandler>();
 builder.Services.AddTransient<IHandler<CallbackQuery>, CallbackQueryHandler>();
