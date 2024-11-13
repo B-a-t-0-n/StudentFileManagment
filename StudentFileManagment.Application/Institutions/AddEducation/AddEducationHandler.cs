@@ -50,7 +50,6 @@ namespace StudentFileManagment.Application.Institutions.AddEducation
 
             institutionExists.Value.InstitutionAndEducation!.ToList().Add(institutionAndEducation);
 
-            await _institutionRepository.Add(institutionExists.Value, cancellationToken);
             await _unitOfWork.SaveChanges(cancellationToken);
             _logger.LogInformation("created InstitutionAndEducation with id {id}",
                 institutionAndEducation.Id);

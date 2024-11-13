@@ -15,8 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="EducationDirections\AddCousce\" />
-    <Folder Include="EducationDirections\AddSemester\" />
     <Folder Include="Subjects\Create\" />
   </ItemGroup>
 

@@ -8,6 +8,7 @@ namespace StudentFileManagment.Application.Institutions
     {
         Task<Guid> Add(Institution institution, CancellationToken cancellationToken = default);
         Task<Result<Institution, Error>> GetById(Guid id, CancellationToken cancellationToken = default);
+        Task<Result<InstitutionAndEducation, Error>> GetInstitutionAndEducationById(Guid id, CancellationToken cancellationToken = default);
         Task<Result<Institution, Error>> GetByName(string name, CancellationToken cancellationToken = default);
     }
 }
