@@ -6,6 +6,7 @@ using StudentFileManagment.Bot.Options;
 using StudentFileManagment.Bot.Features;
 using StudentFileManagment.Bot.Features.Handlers;
 using StudentFileManagment.Infrastructure;
+using StudentFileManagment.Application;
 
 var builder = Host.CreateApplicationBuilder(args);
 builder.Services.AddHostedService<TelegramBotBackgroundService>();
@@ -17,7 +18,8 @@ builder.Services.AddTransient<ITelegramBotClient, TelegramBotClient>(serviceProv
     return new(token);
 });
 
-builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddInfrastructure(builder.Configuration)
+                .AddApplication();
 
 builder.Services.AddTransient<IHandler<Message>, MessageHandler>();
 builder.Services.AddTransient<IHandler<CallbackQuery>, CallbackQueryHandler>();
