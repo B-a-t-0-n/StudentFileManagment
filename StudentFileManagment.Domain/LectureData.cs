@@ -1,6 +1,6 @@
 ﻿namespace StudentFileManagement.Domain
 {
-    public class LectureFiles
+    public class LectureData
     {
         public Guid Id { get; set; }
         public string? Comment { get; set; }
