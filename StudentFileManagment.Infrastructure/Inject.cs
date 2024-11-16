@@ -8,6 +8,11 @@ using StudentFileManagment.Infrastructure.Providers;
 using StudentFileManagment.Infrastructure.Repositories;
 using Minio;
 using StudentFileManagment.Infrastructure.Options;
+using StudentFileManagment.Application.EducationDirections;
+using StudentFileManagment.Application.Educations;
+using StudentFileManagment.Application.Institutions;
+using StudentFileManagment.Application.Users;
+using StudentFileManagment.Application.Subjects;
 
 namespace StudentFileManagment.Infrastructure
 {
@@ -18,6 +23,11 @@ namespace StudentFileManagment.Infrastructure
             IConfiguration configuration)
         {
             services.AddScoped<DataContext>();
+            services.AddScoped<IEducationDirectionRepository, EducationDirectionRepository>();
+            services.AddScoped<IEducationRepository, EducationRepository>();
+            services.AddScoped<IInstitutionRepository, InstitutionRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ISubjectRepository, SubjectRepository>();
             services.AddScoped<ILectureRepositiry, LectureRepositiry>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
