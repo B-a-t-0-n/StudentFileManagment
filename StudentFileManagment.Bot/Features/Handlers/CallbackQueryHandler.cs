@@ -148,7 +148,7 @@ namespace StudentFileManagment.Bot.Features.Handlers
         {
             var parametrs = query.Data!.Split(" ")[1];
 
-            var educationDirections = await _context.EducationDirections
+            var educationDirections = await _context.Semesters
                 .Where(e => e.InstitutionAndEducationId.ToString() == parametrs)
                 .ToListAsync(cancellationToken: cancellationToken);
 
@@ -185,7 +185,7 @@ namespace StudentFileManagment.Bot.Features.Handlers
 
             var buttonsData = cources.OrderBy(c => c.Number).Select(i => (i.Number.ToString(), i.Id));
 
-            var educationDirection = await _context.EducationDirections.FirstOrDefaultAsync(e => e.Id.ToString() == parametrs);
+            var educationDirection = await _context.Semesters.FirstOrDefaultAsync(e => e.Id.ToString() == parametrs);
             if (educationDirection == null)
             {
                 await _botClient.AnswerCallbackQueryAsync(
