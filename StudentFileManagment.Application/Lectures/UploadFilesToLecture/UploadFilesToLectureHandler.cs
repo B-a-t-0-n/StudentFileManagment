@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Logging;
 using StudentFileManagement.Domain;
 using StudentFileManagment.Application.Database;
-using StudentFileManagment.Application.DTO;
 using StudentFileManagment.Application.FileProvider;
 using StudentFileManagment.Application.Lectures.Create;
 using StudentFileManagment.Application.Providers;
@@ -74,6 +73,4 @@ namespace StudentFileManagment.Application.Lectures.UploadFilesToLecture
             return lectureData.Id;
         }
     }
-
-    public record UploadFilesToLectureCommand(Guid LectureId ,Guid LectureDataId, IEnumerable<CreateFileDto> Files);
 }
