@@ -15,11 +15,13 @@ namespace StudentFileManagment.Infrastructure.Repositories
         {
             _dbContext = dbContext;
         }
+
         public async Task<Guid> Add(User user, CancellationToken cancellationToken = default)
         {
             await _dbContext.Users.AddAsync(user, cancellationToken);
             return user.Id;
         }
+
         public async Task<Result<User, Error>> GetByChatId(long chatId, CancellationToken cancellationToken = default)
         {
             var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.ChatId == chatId, cancellationToken);
