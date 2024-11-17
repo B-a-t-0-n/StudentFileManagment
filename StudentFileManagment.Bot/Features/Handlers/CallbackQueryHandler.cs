@@ -24,32 +24,32 @@ namespace StudentFileManagment.Bot.Features.Handlers
 
             switch (query.Data.Split(" ")[0])
             {
-                case "/Institution":
+                case Command.Institution:
                     await ChoosingInstitution(query, cancellationToken);
                     return;
-                case "/Education":
+                case Command.Education:
                     await ChoosingEducation(query, cancellationToken);
                     return;
-                case "/EducationDirections":
+                case Command.EducationDirections:
                     await ChoosingEducationDirections(query, cancellationToken);
                     return;
-                case "/Cource":
+                case Command.Cource:
                     await ChoosingCource(query, cancellationToken);
                     return;
-                case "/Semester":
+                case Command.Semester:
                     await ChoosingSemester(query, cancellationToken);
                     return;
-                case "/Subject":
+                case Command.Subject:
                     await ChoosingSubject(query, cancellationToken);
                     return;
-                case "/Lecture":
+                case Command.Lecture:
                     await ChoosingLecture(query, cancellationToken);
                     return;
-                case "/AddLecture":
+                case Command.AddLecture:
                     await AddLecture(query, cancellationToken);
                     return;
                 default:
-                    await _botClient.AnswerCallbackQueryAsync(
+                    await _botClient.AnswerCallbackQuery(
                         callbackQueryId: query.Id,
                         "кнопка не работает",
                         cancellationToken: cancellationToken);
@@ -59,9 +59,17 @@ namespace StudentFileManagment.Bot.Features.Handlers
 
         private async Task AddLecture(CallbackQuery query, CancellationToken cancellationToken)
         {
+            if (query.Message is not { } message)
+                return;
+
+            var parametr = query.Data!.Split(" ")[1];
+
+            UserState.UserStates[message.Chat.Id] = (UserState.AddLecture, Guid.Parse(parametr));
+            await _botClient.SendMessage(message.Chat.Id, "Введите дату лекции в формате дд.мм.гггг");
+            await _botClient.DeleteMessage(message.Chat.Id, message.Id, cancellationToken);
         }
 
-        private async Task SendMessageAndCallbackButtons(
+        public async Task SendMessageAndCallbackButtons(
             CallbackQuery query,
             string text,
             string command,
@@ -99,8 +107,8 @@ namespace StudentFileManagment.Bot.Features.Handlers
 
             InlineKeyboardMarkup inlineKeyboard = new(buttons);
 
-            await _botClient.AnswerCallbackQueryAsync(callbackQueryId: query.Id, cancellationToken: cancellationToken);
-            await _botClient.EditMessageTextAsync(
+            await _botClient.AnswerCallbackQuery(callbackQueryId: query.Id, cancellationToken: cancellationToken);
+            await _botClient.EditMessageText(
                         messageId: query.Message.MessageId,
                         chatId: message.Chat.Id,
                         text: text,
@@ -118,7 +126,7 @@ namespace StudentFileManagment.Bot.Features.Handlers
             await SendMessageAndCallbackButtons(
                 query,
                 "Выберите учебное заведение",
-                "/Education",
+                Command.Education,
                 buttonsData,
                 cancellationToken);
         }
@@ -137,18 +145,18 @@ namespace StudentFileManagment.Bot.Features.Handlers
             await SendMessageAndCallbackButtons(
                 query,
                 "Выберите тип образования",
-                "/EducationDirections",
+                Command.EducationDirections,
                 buttonsData,
                 cancellationToken,
                 addButtonBack: true,
-                buttonBackRoute: "/Institution");
+                buttonBackRoute: Command.Institution);
         }
 
         private async Task ChoosingEducationDirections(CallbackQuery query, CancellationToken cancellationToken)
         {
             var parametrs = query.Data!.Split(" ")[1];
 
-            var educationDirections = await _context.Semesters
+            var educationDirections = await _context.EducationDirections
                 .Where(e => e.InstitutionAndEducationId.ToString() == parametrs)
                 .ToListAsync(cancellationToken: cancellationToken);
 
@@ -157,7 +165,7 @@ namespace StudentFileManagment.Bot.Features.Handlers
             var institutionAndEducations = await _context.InstitutionAndEducations.FirstOrDefaultAsync(i => i.Id.ToString() == parametrs);
             if (institutionAndEducations == null)
             {
-                await _botClient.AnswerCallbackQueryAsync(
+                await _botClient.AnswerCallbackQuery(
                         callbackQueryId: query.Id,
                         "ошибка",
                         cancellationToken: cancellationToken);
@@ -168,11 +176,11 @@ namespace StudentFileManagment.Bot.Features.Handlers
             await SendMessageAndCallbackButtons(
                 query,
                 "Выберите направление",
-                "/Cource",
+                Command.Cource,
                 buttonsData,
                 cancellationToken,
                 addButtonBack: true,
-                buttonBackRoute: $"/Education {institutionAndEducations.InstitutionId}");
+                buttonBackRoute: $"{Command.Education} {institutionAndEducations.InstitutionId}");
         }
 
         private async Task ChoosingCource(CallbackQuery query, CancellationToken cancellationToken)
@@ -185,10 +193,10 @@ namespace StudentFileManagment.Bot.Features.Handlers
 
             var buttonsData = cources.OrderBy(c => c.Number).Select(i => (i.Number.ToString(), i.Id));
 
-            var educationDirection = await _context.Semesters.FirstOrDefaultAsync(e => e.Id.ToString() == parametrs);
+            var educationDirection = await _context.EducationDirections.FirstOrDefaultAsync(e => e.Id.ToString() == parametrs);
             if (educationDirection == null)
             {
-                await _botClient.AnswerCallbackQueryAsync(
+                await _botClient.AnswerCallbackQuery(
                         callbackQueryId: query.Id,
                         "ошибка",
                         cancellationToken: cancellationToken);
@@ -199,11 +207,11 @@ namespace StudentFileManagment.Bot.Features.Handlers
             await SendMessageAndCallbackButtons(
                 query,
                 "Выберите курс",
-                "/Semester",
+                Command.Semester,
                 buttonsData,
                 cancellationToken,
                 addButtonBack: true,
-                buttonBackRoute: $"/EducationDirections {educationDirection.InstitutionAndEducationId}");
+                buttonBackRoute: $"{Command.EducationDirections} {educationDirection.Id}");
         }
 
         private async Task ChoosingSemester(CallbackQuery query, CancellationToken cancellationToken)
@@ -219,7 +227,7 @@ namespace StudentFileManagment.Bot.Features.Handlers
             var cource = await _context.Cources.FirstOrDefaultAsync(c => c.Id.ToString() == parametrs);
             if(cource == null)
             {
-                await _botClient.AnswerCallbackQueryAsync(
+                await _botClient.AnswerCallbackQuery(
                         callbackQueryId: query.Id,
                         "ошибка",
                         cancellationToken: cancellationToken);
@@ -230,11 +238,11 @@ namespace StudentFileManagment.Bot.Features.Handlers
             await SendMessageAndCallbackButtons(
                 query,
                 "Выберите семестр",
-                "/Subject",
+                Command.Subject,
                 buttonsData,
                 cancellationToken,
                 addButtonBack: true,
-                buttonBackRoute: $"/Cource {cource.EducationDirectionId}");
+                buttonBackRoute: $"{Command.Cource} {cource.EducationDirectionId}");
         }
 
         private async Task ChoosingSubject(CallbackQuery query, CancellationToken cancellationToken)
@@ -250,7 +258,7 @@ namespace StudentFileManagment.Bot.Features.Handlers
             var semester = await _context.Semesters.FirstOrDefaultAsync(s => s.Id.ToString() == parametrs);
             if (semester == null)
             {
-                await _botClient.AnswerCallbackQueryAsync(
+                await _botClient.AnswerCallbackQuery(
                         callbackQueryId: query.Id,
                         "ошибка",
                         cancellationToken: cancellationToken);
@@ -261,11 +269,11 @@ namespace StudentFileManagment.Bot.Features.Handlers
             await SendMessageAndCallbackButtons(
                 query,
                 "Выберите предмет",
-                "/Lecture",
+                Command.Lecture,
                 buttonsData,
                 cancellationToken,
                 addButtonBack: true,
-                buttonBackRoute: $"/Semester {semester.CourceId}");
+                buttonBackRoute: $"{Command.Semester} {semester.CourceId}");
         }
 
         private async Task ChoosingLecture(CallbackQuery query, CancellationToken cancellationToken)
@@ -282,7 +290,7 @@ namespace StudentFileManagment.Bot.Features.Handlers
             var subject = await _context.Subjects.FirstOrDefaultAsync(s => s.Id.ToString() == parametrs);
             if (subject == null)
             {
-                await _botClient.AnswerCallbackQueryAsync(
+                await _botClient.AnswerCallbackQuery(
                         callbackQueryId: query.Id,
                         "ошибка",
                         cancellationToken: cancellationToken);
@@ -297,8 +305,9 @@ namespace StudentFileManagment.Bot.Features.Handlers
                 buttonsData,
                 cancellationToken,
                 addButtonBack: true,
-                buttonBackRoute: $"/Subject {subject.SemesterId}",
-                addButtonAdd: true);
+                buttonBackRoute: $"{Command.Subject} {subject.SemesterId}",
+                addButtonAdd: true,
+                buttonAddRoute: $"{Command.AddLecture} {subject.Id}");
         }
 
     }

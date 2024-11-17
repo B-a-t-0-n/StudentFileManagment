@@ -2,9 +2,9 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using StudentFileManagement.Infrastructure;
 
 #nullable disable
@@ -12,8 +12,8 @@ using StudentFileManagement.Infrastructure;
 namespace StudentFileManagment.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241104155403_UpdateData")]
-    partial class UpdateData
+    [Migration("20241116140532_InitNpg")]
+    partial class InitNpg
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,19 +21,19 @@ namespace StudentFileManagment.Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.10")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("StudentFileManagement.Domain.Education", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -42,17 +42,17 @@ namespace StudentFileManagment.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d01241ad-e80b-4bfd-9473-020f6710c48c"),
+                            Id = new Guid("9440dadc-0b8e-405f-9d30-9b96b17ab15a"),
                             Name = "СПО"
                         },
                         new
                         {
-                            Id = new Guid("c7616c99-233d-4ac8-ac42-7a1e317a8d2d"),
+                            Id = new Guid("fca48a59-2033-43fa-ae7d-b22aeb63851d"),
                             Name = "Бакалавриат"
                         },
                         new
                         {
-                            Id = new Guid("05abe942-b603-4dab-9f8b-99b7c13c23ac"),
+                            Id = new Guid("57887b64-e853-4999-99b8-3d463dfc41f6"),
                             Name = "Магистратура"
                         });
                 });
@@ -61,14 +61,14 @@ namespace StudentFileManagment.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("InstitutionAndEducationId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -79,20 +79,20 @@ namespace StudentFileManagment.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c37058ac-5dd7-41b3-9cf9-5572d734a64b"),
-                            InstitutionAndEducationId = new Guid("1d9d1b7a-9e03-4c27-abae-4914e183ed54"),
+                            Id = new Guid("602c02ae-725b-479e-9667-35c0c0d71384"),
+                            InstitutionAndEducationId = new Guid("8c46491a-e296-470f-9265-2c38c34f44ab"),
                             Name = "Информационные системы и программирование"
                         },
                         new
                         {
-                            Id = new Guid("cea6189b-558a-43e5-9e5e-306186795de6"),
-                            InstitutionAndEducationId = new Guid("caf7cffa-c435-4034-a286-1dbb26d5ff32"),
+                            Id = new Guid("99eab9be-de2e-4b03-ace1-e6e644102578"),
+                            InstitutionAndEducationId = new Guid("ee899545-b050-4ecd-bdd6-4aa25b0d3116"),
                             Name = "Информационные системы и программирование"
                         },
                         new
                         {
-                            Id = new Guid("3613288f-3b03-4d40-bc83-3e0a05755896"),
-                            InstitutionAndEducationId = new Guid("58255230-8f22-41a7-8dce-f03c0933d610"),
+                            Id = new Guid("1282b2ab-45df-4820-9600-5d31a6950d0f"),
+                            InstitutionAndEducationId = new Guid("20e2cbea-95ba-48e1-ae75-6096d5cc3f72"),
                             Name = "Информационные системы и программирование"
                         });
                 });
@@ -101,18 +101,18 @@ namespace StudentFileManagment.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
-                    b.Property<Guid>("LectureFilesId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<Guid>("LectureDataId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Path")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LectureFilesId");
+                    b.HasIndex("LectureDataId");
 
                     b.ToTable("Files");
                 });
@@ -121,11 +121,11 @@ namespace StudentFileManagment.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -134,7 +134,7 @@ namespace StudentFileManagment.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("66fdf08d-10d9-42c2-a8cf-02a0a06505da"),
+                            Id = new Guid("5e21af2c-01cb-475e-a487-23083064353d"),
                             Name = "ВГЛТУ"
                         });
                 });
@@ -143,16 +143,13 @@ namespace StudentFileManagment.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("DirectionsId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("EducationId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("InstitutionId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -165,24 +162,21 @@ namespace StudentFileManagment.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("1d9d1b7a-9e03-4c27-abae-4914e183ed54"),
-                            DirectionsId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            EducationId = new Guid("d01241ad-e80b-4bfd-9473-020f6710c48c"),
-                            InstitutionId = new Guid("66fdf08d-10d9-42c2-a8cf-02a0a06505da")
+                            Id = new Guid("8c46491a-e296-470f-9265-2c38c34f44ab"),
+                            EducationId = new Guid("9440dadc-0b8e-405f-9d30-9b96b17ab15a"),
+                            InstitutionId = new Guid("5e21af2c-01cb-475e-a487-23083064353d")
                         },
                         new
                         {
-                            Id = new Guid("caf7cffa-c435-4034-a286-1dbb26d5ff32"),
-                            DirectionsId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            EducationId = new Guid("c7616c99-233d-4ac8-ac42-7a1e317a8d2d"),
-                            InstitutionId = new Guid("66fdf08d-10d9-42c2-a8cf-02a0a06505da")
+                            Id = new Guid("ee899545-b050-4ecd-bdd6-4aa25b0d3116"),
+                            EducationId = new Guid("fca48a59-2033-43fa-ae7d-b22aeb63851d"),
+                            InstitutionId = new Guid("5e21af2c-01cb-475e-a487-23083064353d")
                         },
                         new
                         {
-                            Id = new Guid("58255230-8f22-41a7-8dce-f03c0933d610"),
-                            DirectionsId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            EducationId = new Guid("05abe942-b603-4dab-9f8b-99b7c13c23ac"),
-                            InstitutionId = new Guid("66fdf08d-10d9-42c2-a8cf-02a0a06505da")
+                            Id = new Guid("20e2cbea-95ba-48e1-ae75-6096d5cc3f72"),
+                            EducationId = new Guid("57887b64-e853-4999-99b8-3d463dfc41f6"),
+                            InstitutionId = new Guid("5e21af2c-01cb-475e-a487-23083064353d")
                         });
                 });
 
@@ -190,16 +184,13 @@ namespace StudentFileManagment.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateOnly>("Date")
                         .HasColumnType("date");
 
-                    b.Property<int>("Number")
-                        .HasColumnType("int");
-
                     b.Property<Guid>("SubjectId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -208,20 +199,20 @@ namespace StudentFileManagment.Infrastructure.Migrations
                     b.ToTable("Lectures");
                 });
 
-            modelBuilder.Entity("StudentFileManagement.Domain.LectureFiles", b =>
+            modelBuilder.Entity("StudentFileManagement.Domain.LectureData", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Comment")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<Guid>("LectureId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -229,21 +220,21 @@ namespace StudentFileManagment.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("LectureFiles");
+                    b.ToTable("LecturesData");
                 });
 
             modelBuilder.Entity("StudentFileManagement.Domain.Subject", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<Guid>("SemesterId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -254,9 +245,9 @@ namespace StudentFileManagment.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("1f122923-d1f1-4434-adb3-a1f3e743f46e"),
+                            Id = new Guid("17bda0f9-e109-43ef-9157-e2fcabfb741b"),
                             Name = "Проектирование и дизайн информационных систем",
-                            SemesterId = new Guid("64ae2b2a-e220-450f-8848-3a6a86a9d84c")
+                            SemesterId = new Guid("a1c92cd1-df66-4024-9ed0-033c5d3b49ee")
                         });
                 });
 
@@ -264,22 +255,22 @@ namespace StudentFileManagment.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<long>("ChatId")
                         .HasColumnType("bigint");
 
                     b.Property<bool>("IsAdmin")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsModerator")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Nickname")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -290,13 +281,13 @@ namespace StudentFileManagment.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("EducationDirectionId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Number")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -307,62 +298,62 @@ namespace StudentFileManagment.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("9d399f47-e840-40d9-a159-6e2e6bbcbed3"),
-                            EducationDirectionId = new Guid("c37058ac-5dd7-41b3-9cf9-5572d734a64b"),
+                            Id = new Guid("d97a028d-d3f3-43a5-98b1-06e0f5cf4ca5"),
+                            EducationDirectionId = new Guid("602c02ae-725b-479e-9667-35c0c0d71384"),
                             Number = 1
                         },
                         new
                         {
-                            Id = new Guid("3b98ae3d-02b2-4812-9a08-ad940a33da15"),
-                            EducationDirectionId = new Guid("c37058ac-5dd7-41b3-9cf9-5572d734a64b"),
+                            Id = new Guid("4a9ffe2f-eed7-48c4-abcf-2a6a56063b4e"),
+                            EducationDirectionId = new Guid("602c02ae-725b-479e-9667-35c0c0d71384"),
                             Number = 2
                         },
                         new
                         {
-                            Id = new Guid("5b66dbc6-691a-4d66-bed4-a8d39ec2a4a2"),
-                            EducationDirectionId = new Guid("c37058ac-5dd7-41b3-9cf9-5572d734a64b"),
+                            Id = new Guid("3f630e70-6bdf-4da0-980b-3645009cb7c7"),
+                            EducationDirectionId = new Guid("602c02ae-725b-479e-9667-35c0c0d71384"),
                             Number = 3
                         },
                         new
                         {
-                            Id = new Guid("8d5f8c4d-ea0f-4ba0-97df-2ea97e45950b"),
-                            EducationDirectionId = new Guid("c37058ac-5dd7-41b3-9cf9-5572d734a64b"),
+                            Id = new Guid("e2597d08-fd61-44d0-9fe3-dfafc9ed1462"),
+                            EducationDirectionId = new Guid("602c02ae-725b-479e-9667-35c0c0d71384"),
                             Number = 4
                         },
                         new
                         {
-                            Id = new Guid("edc4b7fc-df64-4cdb-a687-38b7cd9b042b"),
-                            EducationDirectionId = new Guid("cea6189b-558a-43e5-9e5e-306186795de6"),
+                            Id = new Guid("5367ef55-a173-489e-82c0-840aa3d56ed0"),
+                            EducationDirectionId = new Guid("99eab9be-de2e-4b03-ace1-e6e644102578"),
                             Number = 1
                         },
                         new
                         {
-                            Id = new Guid("67f9d45f-9cd2-4489-9d33-93d26f0c0b84"),
-                            EducationDirectionId = new Guid("cea6189b-558a-43e5-9e5e-306186795de6"),
+                            Id = new Guid("fb154af1-7230-4caf-99b8-7c597cf8fe74"),
+                            EducationDirectionId = new Guid("99eab9be-de2e-4b03-ace1-e6e644102578"),
                             Number = 2
                         },
                         new
                         {
-                            Id = new Guid("fa016b7a-0a10-4f51-84c7-7d676efe1d35"),
-                            EducationDirectionId = new Guid("cea6189b-558a-43e5-9e5e-306186795de6"),
+                            Id = new Guid("60db9a82-a8e0-4114-812a-a12a75336eb1"),
+                            EducationDirectionId = new Guid("99eab9be-de2e-4b03-ace1-e6e644102578"),
                             Number = 3
                         },
                         new
                         {
-                            Id = new Guid("56f48ee5-5950-44c7-8c35-036f78c9624f"),
-                            EducationDirectionId = new Guid("cea6189b-558a-43e5-9e5e-306186795de6"),
+                            Id = new Guid("25eb8274-13a4-4e19-9446-d903e2c9a0c4"),
+                            EducationDirectionId = new Guid("99eab9be-de2e-4b03-ace1-e6e644102578"),
                             Number = 4
                         },
                         new
                         {
-                            Id = new Guid("cee68c2e-d5a1-4a94-9976-9256bf1363b2"),
-                            EducationDirectionId = new Guid("3613288f-3b03-4d40-bc83-3e0a05755896"),
+                            Id = new Guid("5c117bc6-912d-4fd0-881d-5ec5ce666083"),
+                            EducationDirectionId = new Guid("1282b2ab-45df-4820-9600-5d31a6950d0f"),
                             Number = 1
                         },
                         new
                         {
-                            Id = new Guid("468adf17-3a5c-41da-86e0-28c6232f8e16"),
-                            EducationDirectionId = new Guid("3613288f-3b03-4d40-bc83-3e0a05755896"),
+                            Id = new Guid("1f59417a-37c8-46a6-99d2-e54af9144193"),
+                            EducationDirectionId = new Guid("1282b2ab-45df-4820-9600-5d31a6950d0f"),
                             Number = 2
                         });
                 });
@@ -371,13 +362,13 @@ namespace StudentFileManagment.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("CourceId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Number")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -388,122 +379,122 @@ namespace StudentFileManagment.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("39cc24c3-17d8-4493-8870-6b235b4f371b"),
-                            CourceId = new Guid("9d399f47-e840-40d9-a159-6e2e6bbcbed3"),
+                            Id = new Guid("88d67125-447d-4ece-b6bf-cfc35c322c6a"),
+                            CourceId = new Guid("d97a028d-d3f3-43a5-98b1-06e0f5cf4ca5"),
                             Number = 1
                         },
                         new
                         {
-                            Id = new Guid("2e8ea62a-8edb-4291-9944-1eddcc2d7ad7"),
-                            CourceId = new Guid("9d399f47-e840-40d9-a159-6e2e6bbcbed3"),
+                            Id = new Guid("aee70948-d546-4475-8d2a-fb4edf1c259a"),
+                            CourceId = new Guid("d97a028d-d3f3-43a5-98b1-06e0f5cf4ca5"),
                             Number = 2
                         },
                         new
                         {
-                            Id = new Guid("64ae2b2a-e220-450f-8848-3a6a86a9d84c"),
-                            CourceId = new Guid("3b98ae3d-02b2-4812-9a08-ad940a33da15"),
+                            Id = new Guid("a1c92cd1-df66-4024-9ed0-033c5d3b49ee"),
+                            CourceId = new Guid("4a9ffe2f-eed7-48c4-abcf-2a6a56063b4e"),
                             Number = 1
                         },
                         new
                         {
-                            Id = new Guid("991dc8f3-1676-4f7f-9a35-dcb029ddfdd6"),
-                            CourceId = new Guid("3b98ae3d-02b2-4812-9a08-ad940a33da15"),
+                            Id = new Guid("3b92f388-ec22-4503-a331-7872cd88d677"),
+                            CourceId = new Guid("4a9ffe2f-eed7-48c4-abcf-2a6a56063b4e"),
                             Number = 2
                         },
                         new
                         {
-                            Id = new Guid("46a547ae-c02c-4239-b88d-29a61ba6ee47"),
-                            CourceId = new Guid("5b66dbc6-691a-4d66-bed4-a8d39ec2a4a2"),
+                            Id = new Guid("37fb6708-f002-4b24-81ef-a423f441a22e"),
+                            CourceId = new Guid("3f630e70-6bdf-4da0-980b-3645009cb7c7"),
                             Number = 1
                         },
                         new
                         {
-                            Id = new Guid("f8ec1b2b-7dbd-4c4c-9db6-5b3c2204c241"),
-                            CourceId = new Guid("5b66dbc6-691a-4d66-bed4-a8d39ec2a4a2"),
+                            Id = new Guid("7470b8a7-5369-441d-b84e-08b0c2508113"),
+                            CourceId = new Guid("3f630e70-6bdf-4da0-980b-3645009cb7c7"),
                             Number = 2
                         },
                         new
                         {
-                            Id = new Guid("43ef8818-1a69-49b8-8cda-7f0d13e0ebaa"),
-                            CourceId = new Guid("8d5f8c4d-ea0f-4ba0-97df-2ea97e45950b"),
+                            Id = new Guid("d1aed08c-dea4-4564-8682-a95b15f850e8"),
+                            CourceId = new Guid("e2597d08-fd61-44d0-9fe3-dfafc9ed1462"),
                             Number = 1
                         },
                         new
                         {
-                            Id = new Guid("9aad3171-d0e2-43ec-9229-f671a88f6621"),
-                            CourceId = new Guid("8d5f8c4d-ea0f-4ba0-97df-2ea97e45950b"),
+                            Id = new Guid("ab1237fd-44b3-4e79-89f7-1602440d5667"),
+                            CourceId = new Guid("e2597d08-fd61-44d0-9fe3-dfafc9ed1462"),
                             Number = 2
                         },
                         new
                         {
-                            Id = new Guid("3cabebb5-558d-443e-946a-07f708887f1d"),
-                            CourceId = new Guid("edc4b7fc-df64-4cdb-a687-38b7cd9b042b"),
+                            Id = new Guid("c89bb612-3643-451c-b2bc-892d7b98c7fe"),
+                            CourceId = new Guid("5367ef55-a173-489e-82c0-840aa3d56ed0"),
                             Number = 1
                         },
                         new
                         {
-                            Id = new Guid("8f03ad28-5f0d-4c72-88d1-969578644e20"),
-                            CourceId = new Guid("edc4b7fc-df64-4cdb-a687-38b7cd9b042b"),
+                            Id = new Guid("f8708152-cfe8-403c-8158-deb62ad3d5f8"),
+                            CourceId = new Guid("5367ef55-a173-489e-82c0-840aa3d56ed0"),
                             Number = 2
                         },
                         new
                         {
-                            Id = new Guid("78e3aeb3-a34c-4de6-a6fe-5096ac6a8f64"),
-                            CourceId = new Guid("67f9d45f-9cd2-4489-9d33-93d26f0c0b84"),
+                            Id = new Guid("4f3cf312-fad2-4b6b-ab6d-2a3c59318983"),
+                            CourceId = new Guid("fb154af1-7230-4caf-99b8-7c597cf8fe74"),
                             Number = 1
                         },
                         new
                         {
-                            Id = new Guid("f2baa983-44f4-4cbf-b8f3-ebecfb303ac8"),
-                            CourceId = new Guid("67f9d45f-9cd2-4489-9d33-93d26f0c0b84"),
+                            Id = new Guid("8ad2a130-cc52-478f-a454-e6bdf29d3e7d"),
+                            CourceId = new Guid("fb154af1-7230-4caf-99b8-7c597cf8fe74"),
                             Number = 2
                         },
                         new
                         {
-                            Id = new Guid("3872bdd2-08cf-4452-ab6c-a36b2974a2b5"),
-                            CourceId = new Guid("fa016b7a-0a10-4f51-84c7-7d676efe1d35"),
+                            Id = new Guid("6efdb899-7c4c-45b2-b970-52d1effc24e5"),
+                            CourceId = new Guid("60db9a82-a8e0-4114-812a-a12a75336eb1"),
                             Number = 1
                         },
                         new
                         {
-                            Id = new Guid("da0eaf8b-b463-4363-87dd-da54e4b59065"),
-                            CourceId = new Guid("fa016b7a-0a10-4f51-84c7-7d676efe1d35"),
+                            Id = new Guid("2aec6b9f-c3c2-4871-954e-4b1f3b31a029"),
+                            CourceId = new Guid("60db9a82-a8e0-4114-812a-a12a75336eb1"),
                             Number = 2
                         },
                         new
                         {
-                            Id = new Guid("d7da980c-3e04-40aa-a6a2-252255eaefcd"),
-                            CourceId = new Guid("56f48ee5-5950-44c7-8c35-036f78c9624f"),
+                            Id = new Guid("242f1d10-ee25-4ce0-9857-5a2fa225f32b"),
+                            CourceId = new Guid("25eb8274-13a4-4e19-9446-d903e2c9a0c4"),
                             Number = 1
                         },
                         new
                         {
-                            Id = new Guid("95ae6a17-5452-4548-88bb-b54d36dc14ed"),
-                            CourceId = new Guid("56f48ee5-5950-44c7-8c35-036f78c9624f"),
+                            Id = new Guid("52276e5f-98ef-45d7-a75e-2aa76a025eaf"),
+                            CourceId = new Guid("25eb8274-13a4-4e19-9446-d903e2c9a0c4"),
                             Number = 2
                         },
                         new
                         {
-                            Id = new Guid("7bc709ca-6a17-496c-ad0c-a783b95cbdb8"),
-                            CourceId = new Guid("cee68c2e-d5a1-4a94-9976-9256bf1363b2"),
+                            Id = new Guid("67f74fd7-5ae4-428a-84fc-b3dd90140ea9"),
+                            CourceId = new Guid("5c117bc6-912d-4fd0-881d-5ec5ce666083"),
                             Number = 1
                         },
                         new
                         {
-                            Id = new Guid("53c8a24f-caf1-47e9-8083-4ccb342058df"),
-                            CourceId = new Guid("cee68c2e-d5a1-4a94-9976-9256bf1363b2"),
+                            Id = new Guid("9dd87b67-13a9-4c21-843d-0d2e88ca6c7f"),
+                            CourceId = new Guid("5c117bc6-912d-4fd0-881d-5ec5ce666083"),
                             Number = 2
                         },
                         new
                         {
-                            Id = new Guid("1924050d-042b-4a91-b4a6-9e8aff18081a"),
-                            CourceId = new Guid("468adf17-3a5c-41da-86e0-28c6232f8e16"),
+                            Id = new Guid("8c4895c7-41e3-4df8-8a3e-c73a919c4d71"),
+                            CourceId = new Guid("1f59417a-37c8-46a6-99d2-e54af9144193"),
                             Number = 1
                         },
                         new
                         {
-                            Id = new Guid("118c8549-2cf5-486d-8f90-da00e125504d"),
-                            CourceId = new Guid("468adf17-3a5c-41da-86e0-28c6232f8e16"),
+                            Id = new Guid("430d8369-41ec-4947-8ea0-f179becb5eed"),
+                            CourceId = new Guid("1f59417a-37c8-46a6-99d2-e54af9144193"),
                             Number = 2
                         });
                 });
@@ -521,13 +512,13 @@ namespace StudentFileManagment.Infrastructure.Migrations
 
             modelBuilder.Entity("StudentFileManagement.Domain.File", b =>
                 {
-                    b.HasOne("StudentFileManagement.Domain.LectureFiles", "LectureFiles")
+                    b.HasOne("StudentFileManagement.Domain.LectureData", "LectureData")
                         .WithMany("File")
-                        .HasForeignKey("LectureFilesId")
+                        .HasForeignKey("LectureDataId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("LectureFiles");
+                    b.Navigation("LectureData");
                 });
 
             modelBuilder.Entity("StudentFileManagement.Domain.InstitutionAndEducation", b =>
@@ -560,7 +551,7 @@ namespace StudentFileManagment.Infrastructure.Migrations
                     b.Navigation("Subject");
                 });
 
-            modelBuilder.Entity("StudentFileManagement.Domain.LectureFiles", b =>
+            modelBuilder.Entity("StudentFileManagement.Domain.LectureData", b =>
                 {
                     b.HasOne("StudentFileManagement.Domain.Lecture", "Lecture")
                         .WithMany("Files")
@@ -637,7 +628,7 @@ namespace StudentFileManagment.Infrastructure.Migrations
                     b.Navigation("Files");
                 });
 
-            modelBuilder.Entity("StudentFileManagement.Domain.LectureFiles", b =>
+            modelBuilder.Entity("StudentFileManagement.Domain.LectureData", b =>
                 {
                     b.Navigation("File");
                 });

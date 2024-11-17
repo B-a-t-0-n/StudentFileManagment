@@ -21,7 +21,7 @@ namespace StudentFileManagment.Bot
             _scopeFactory = scopeFactory;
             _logger = logger;
 
-            botClient.DropPendingUpdatesAsync();
+            botClient.DropPendingUpdates();
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)

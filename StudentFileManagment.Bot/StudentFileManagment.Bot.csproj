@@ -17,18 +17,14 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
-    <PackageReference Include="Telegram.Bot" Version="21.11.0" />
+    <PackageReference Include="Telegram.Bot" Version="22.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\StudentFileManagment.Application\StudentFileManagment.Application.csproj" />
     <ProjectReference Include="..\StudentFileManagment.Domain\StudentFileManagment.Domain.csproj" />
     <ProjectReference Include="..\StudentFileManagment.Infrastructure\StudentFileManagment.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Features\Commands\" />
   </ItemGroup>
 </Project>
