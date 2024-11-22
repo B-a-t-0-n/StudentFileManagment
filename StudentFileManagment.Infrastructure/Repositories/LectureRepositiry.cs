@@ -35,7 +35,7 @@ namespace StudentFileManagment.Infrastructure.Repositories
 
         public async Task<Result<Lecture, Error>> GetById(Guid id, CancellationToken cancellationToken = default)
         {
-            var lecture = await _dbContext.Lectures.Include(l => l.Files)
+            var lecture = await _dbContext.Lectures.Include(l => l.Files).ThenInclude(l => l.User)
                                                    .FirstOrDefaultAsync(l => l.Id == id, cancellationToken);
 
             if (lecture is null)

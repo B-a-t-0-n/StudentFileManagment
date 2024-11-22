@@ -48,6 +48,12 @@ namespace StudentFileManagment.Bot.Features.Handlers
                 case Command.AddLecture:
                     await AddLecture(query, cancellationToken);
                     return;
+                case Command.LectureData:
+                    await ChoosingLecturesData(query, cancellationToken);
+                    return;
+                case Command.AddLectureData:
+                    await AddLectureData(query, cancellationToken);
+                    return;
                 default:
                     await _botClient.AnswerCallbackQuery(
                         callbackQueryId: query.Id,
@@ -69,12 +75,24 @@ namespace StudentFileManagment.Bot.Features.Handlers
             await _botClient.DeleteMessage(message.Chat.Id, message.Id, cancellationToken);
         }
 
+        private async Task AddLectureData(CallbackQuery query, CancellationToken cancellationToken)
+        {
+            if (query.Message is not { } message)
+                return;
+
+            var parametr = query.Data!.Split(" ")[1];
+
+            UserState.UserStates[message.Chat.Id] = (UserState.AddLectureData, Guid.Parse(parametr));
+            await _botClient.SendMessage(message.Chat.Id, "Введите коментарий к лекции");
+            await _botClient.DeleteMessage(message.Chat.Id, message.Id, cancellationToken);
+        }
+
         public async Task SendMessageAndCallbackButtons(
             CallbackQuery query,
             string text,
-            string command,
-            IEnumerable<(string, Guid)> buttonsData,
-            CancellationToken cancellationToken,
+            string command = "none",
+            IEnumerable<(string, Guid)>? buttonsData = null,
+            CancellationToken cancellationToken = default,
             bool addButtonBack = false,
             bool addButtonAdd = false,
             string buttonBackRoute = "back",
@@ -84,6 +102,11 @@ namespace StudentFileManagment.Bot.Features.Handlers
                 return;
 
             var buttons = new List<List<InlineKeyboardButton>>();
+
+            if(buttonsData is null)
+            {
+                buttonsData = new List<(string, Guid)>();
+            }
 
             foreach (var buttonData in buttonsData)
             {
@@ -211,7 +234,7 @@ namespace StudentFileManagment.Bot.Features.Handlers
                 buttonsData,
                 cancellationToken,
                 addButtonBack: true,
-                buttonBackRoute: $"{Command.EducationDirections} {educationDirection.Id}");
+                buttonBackRoute: $"{Command.EducationDirections} {educationDirection.InstitutionAndEducationId}");
         }
 
         private async Task ChoosingSemester(CallbackQuery query, CancellationToken cancellationToken)
@@ -301,13 +324,50 @@ namespace StudentFileManagment.Bot.Features.Handlers
             await SendMessageAndCallbackButtons(
                 query,
                 "Выберите лекцию",
-                "/LectureFiles",
+                Command.LectureData,
                 buttonsData,
                 cancellationToken,
                 addButtonBack: true,
                 buttonBackRoute: $"{Command.Subject} {subject.SemesterId}",
                 addButtonAdd: true,
                 buttonAddRoute: $"{Command.AddLecture} {subject.Id}");
+        }
+
+        private async Task ChoosingLecturesData(CallbackQuery query, CancellationToken cancellationToken)
+        {
+            var parametrs = query.Data!.Split(" ")[1];
+
+            var lecturesData = await _context.LecturesData
+                .Include(l => l.Lecture)
+                .Include(l => l.User)
+                .Where(l => l.Lecture.Id.ToString() == parametrs)
+                .ToListAsync(cancellationToken: cancellationToken);
+
+            var lecture = await _context.Lectures.Include(l => l.Subject).FirstOrDefaultAsync(l => l.Id.ToString() == parametrs);
+            if (lecture == null)
+            {
+                await _botClient.AnswerCallbackQuery(
+                        callbackQueryId: query.Id,
+                        "ошибка",
+                        cancellationToken: cancellationToken);
+                //log
+                return;
+            }
+
+            foreach (var lectureData in lecturesData) 
+            {
+                var text = $"User: {lectureData.User.Nickname} {lectureData.User.Name}";
+                var keyboard = new InlineKeyboardMarkup(InlineKeyboardButton.WithCallbackData("Выбрать", $"{Command.File} {lectureData.Id}"));
+            }
+
+            await SendMessageAndCallbackButtons(
+                query,
+                "Выберете действие",
+                cancellationToken: cancellationToken,
+                addButtonBack: true,
+                buttonBackRoute: $"{Command.Lecture} {lecture.Subject.Id}",
+                addButtonAdd: true,
+                buttonAddRoute: $"{Command.AddLectureData} {lecture.Id}");
         }
 
     }

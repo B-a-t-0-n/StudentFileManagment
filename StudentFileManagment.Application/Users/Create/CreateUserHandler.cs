@@ -53,6 +53,4 @@ namespace StudentFileManagment.Application.Users.Create
             return user.Id;
         }
     }
-
-    public record CreateUserCommand(string? Name, string? Nickname, long chatId, bool IsAdmin, bool IsModerator);
 }

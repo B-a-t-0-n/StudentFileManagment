@@ -45,11 +45,11 @@ namespace StudentFileManagment.Application.Lectures.AddLectureData
             var lectureData = new LectureData()
             {
                 Id = new Guid(),
-                Comment = command.Comment
+                Comment = command.Comment,
+                User = userResult.Value,
             };
 
             lectureResult.Value.Files!.ToList().Add(lectureData);
-
             await _unitOfWork.SaveChanges(cancellationToken);
             _logger.LogInformation("created lectureData with id {Id}", lectureData.Id);
 
