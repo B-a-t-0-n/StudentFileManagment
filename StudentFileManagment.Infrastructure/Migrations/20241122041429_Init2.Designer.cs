@@ -12,8 +12,8 @@ using StudentFileManagement.Infrastructure;
 namespace StudentFileManagment.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241122032112_Aaa")]
-    partial class Aaa
+    [Migration("20241122041429_Init2")]
+    partial class Init2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,17 +42,17 @@ namespace StudentFileManagment.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("12ad0b99-3533-44d2-ba69-af64448fe7fc"),
+                            Id = new Guid("186e1b42-2d04-4861-ac6a-58c81516d11c"),
                             Name = "СПО"
                         },
                         new
                         {
-                            Id = new Guid("f8be468f-100b-4aab-93b4-cbf2b182010c"),
+                            Id = new Guid("299c3893-8410-474c-a474-e2632e5d71f7"),
                             Name = "Бакалавриат"
                         },
                         new
                         {
-                            Id = new Guid("0ca06734-c380-49f0-9494-43f32c554b68"),
+                            Id = new Guid("9b04d453-ddb5-464f-b14c-950514b95b64"),
                             Name = "Магистратура"
                         });
                 });
@@ -79,20 +79,20 @@ namespace StudentFileManagment.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("0e9ada63-c621-48a2-89d2-df7eb0bfc38d"),
-                            InstitutionAndEducationId = new Guid("789f545c-95ba-4aed-9911-84ba308afe61"),
+                            Id = new Guid("5e0716c4-7e58-4b0f-9587-7527a1be9b60"),
+                            InstitutionAndEducationId = new Guid("a517a396-1ff2-4e27-9687-abe765205448"),
                             Name = "Информационные системы и программирование"
                         },
                         new
                         {
-                            Id = new Guid("545c1c90-c6ce-4fda-9e00-a799bb03a321"),
-                            InstitutionAndEducationId = new Guid("96e55109-8353-4fc0-bcba-4220d50e1399"),
+                            Id = new Guid("e12769d9-482e-4e82-aaf5-1188bda2a018"),
+                            InstitutionAndEducationId = new Guid("424b2026-d1ae-42d1-bc1b-71b572a1b197"),
                             Name = "Информационные системы и программирование"
                         },
                         new
                         {
-                            Id = new Guid("99c3f27c-cc25-48f5-adb5-944762dbac9d"),
-                            InstitutionAndEducationId = new Guid("0947239c-7486-4a29-9169-fa108fc4d6f5"),
+                            Id = new Guid("0693f766-70d8-4ba2-b048-5fc91ba79eb1"),
+                            InstitutionAndEducationId = new Guid("576d5746-fdc2-47a5-9a32-f70161f6f8aa"),
                             Name = "Информационные системы и программирование"
                         });
                 });
@@ -134,7 +134,7 @@ namespace StudentFileManagment.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ef222af5-1e5e-48e0-9c30-23e448437b61"),
+                            Id = new Guid("2984d40a-7b27-4863-bd72-a55def5341f0"),
                             Name = "ВГЛТУ"
                         });
                 });
@@ -162,21 +162,21 @@ namespace StudentFileManagment.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("789f545c-95ba-4aed-9911-84ba308afe61"),
-                            EducationId = new Guid("12ad0b99-3533-44d2-ba69-af64448fe7fc"),
-                            InstitutionId = new Guid("ef222af5-1e5e-48e0-9c30-23e448437b61")
+                            Id = new Guid("a517a396-1ff2-4e27-9687-abe765205448"),
+                            EducationId = new Guid("186e1b42-2d04-4861-ac6a-58c81516d11c"),
+                            InstitutionId = new Guid("2984d40a-7b27-4863-bd72-a55def5341f0")
                         },
                         new
                         {
-                            Id = new Guid("96e55109-8353-4fc0-bcba-4220d50e1399"),
-                            EducationId = new Guid("f8be468f-100b-4aab-93b4-cbf2b182010c"),
-                            InstitutionId = new Guid("ef222af5-1e5e-48e0-9c30-23e448437b61")
+                            Id = new Guid("424b2026-d1ae-42d1-bc1b-71b572a1b197"),
+                            EducationId = new Guid("299c3893-8410-474c-a474-e2632e5d71f7"),
+                            InstitutionId = new Guid("2984d40a-7b27-4863-bd72-a55def5341f0")
                         },
                         new
                         {
-                            Id = new Guid("0947239c-7486-4a29-9169-fa108fc4d6f5"),
-                            EducationId = new Guid("0ca06734-c380-49f0-9494-43f32c554b68"),
-                            InstitutionId = new Guid("ef222af5-1e5e-48e0-9c30-23e448437b61")
+                            Id = new Guid("576d5746-fdc2-47a5-9a32-f70161f6f8aa"),
+                            EducationId = new Guid("9b04d453-ddb5-464f-b14c-950514b95b64"),
+                            InstitutionId = new Guid("2984d40a-7b27-4863-bd72-a55def5341f0")
                         });
                 });
 
@@ -245,9 +245,9 @@ namespace StudentFileManagment.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f3d765f0-d04f-4ad7-be1f-7fcac9d1e2b4"),
+                            Id = new Guid("f0381b59-ae17-432b-abfd-cf8837100e91"),
                             Name = "Проектирование и дизайн информационных систем",
-                            SemesterId = new Guid("0d4030d5-dd4f-46d9-983c-1f7b2c66533b")
+                            SemesterId = new Guid("9a3f10eb-a7c9-4d51-90ec-ad213ccfe969")
                         });
                 });
 
@@ -298,62 +298,62 @@ namespace StudentFileManagment.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("019e8657-782f-4ed6-9022-2c7d3fba9f61"),
-                            EducationDirectionId = new Guid("0e9ada63-c621-48a2-89d2-df7eb0bfc38d"),
+                            Id = new Guid("2f989096-0137-4948-ade8-8fccf143f482"),
+                            EducationDirectionId = new Guid("5e0716c4-7e58-4b0f-9587-7527a1be9b60"),
                             Number = 1
                         },
                         new
                         {
-                            Id = new Guid("4990bf26-a836-406b-96eb-7b1da4f6acd0"),
-                            EducationDirectionId = new Guid("0e9ada63-c621-48a2-89d2-df7eb0bfc38d"),
+                            Id = new Guid("8ae9dd08-68ac-4919-8a2d-e70158d71989"),
+                            EducationDirectionId = new Guid("5e0716c4-7e58-4b0f-9587-7527a1be9b60"),
                             Number = 2
                         },
                         new
                         {
-                            Id = new Guid("d385d4ca-7033-45d2-90c7-bc818732ba26"),
-                            EducationDirectionId = new Guid("0e9ada63-c621-48a2-89d2-df7eb0bfc38d"),
+                            Id = new Guid("e90c0d77-6e23-4f45-a1d8-37c27c44a263"),
+                            EducationDirectionId = new Guid("5e0716c4-7e58-4b0f-9587-7527a1be9b60"),
                             Number = 3
                         },
                         new
                         {
-                            Id = new Guid("e327543f-40b0-4cd6-9500-98e7e0d64170"),
-                            EducationDirectionId = new Guid("0e9ada63-c621-48a2-89d2-df7eb0bfc38d"),
+                            Id = new Guid("f035deef-036b-4121-8e7e-ceea31a5e79c"),
+                            EducationDirectionId = new Guid("5e0716c4-7e58-4b0f-9587-7527a1be9b60"),
                             Number = 4
                         },
                         new
                         {
-                            Id = new Guid("c0b5c432-9272-43ce-b929-479a73c8378a"),
-                            EducationDirectionId = new Guid("545c1c90-c6ce-4fda-9e00-a799bb03a321"),
+                            Id = new Guid("1137c747-cef6-4427-9df4-3770b341ff8e"),
+                            EducationDirectionId = new Guid("e12769d9-482e-4e82-aaf5-1188bda2a018"),
                             Number = 1
                         },
                         new
                         {
-                            Id = new Guid("2008622c-d216-46f2-9ba8-85818c58830c"),
-                            EducationDirectionId = new Guid("545c1c90-c6ce-4fda-9e00-a799bb03a321"),
+                            Id = new Guid("76067cb0-6dde-4b41-9c1d-f5a0f404f339"),
+                            EducationDirectionId = new Guid("e12769d9-482e-4e82-aaf5-1188bda2a018"),
                             Number = 2
                         },
                         new
                         {
-                            Id = new Guid("da81cc99-4753-4f69-9a12-f338cee686e8"),
-                            EducationDirectionId = new Guid("545c1c90-c6ce-4fda-9e00-a799bb03a321"),
+                            Id = new Guid("71edbd03-980f-48c4-a524-ff551439cf09"),
+                            EducationDirectionId = new Guid("e12769d9-482e-4e82-aaf5-1188bda2a018"),
                             Number = 3
                         },
                         new
                         {
-                            Id = new Guid("b3279ac9-325e-4f06-9705-fe7300fd9c00"),
-                            EducationDirectionId = new Guid("545c1c90-c6ce-4fda-9e00-a799bb03a321"),
+                            Id = new Guid("6cac5cab-7f5f-4723-a1bc-a1b71d4400db"),
+                            EducationDirectionId = new Guid("e12769d9-482e-4e82-aaf5-1188bda2a018"),
                             Number = 4
                         },
                         new
                         {
-                            Id = new Guid("dee18e93-10e5-49bb-82fb-2bcdeb19b436"),
-                            EducationDirectionId = new Guid("99c3f27c-cc25-48f5-adb5-944762dbac9d"),
+                            Id = new Guid("05fcba21-0f9a-4ac5-abb9-439e61172f53"),
+                            EducationDirectionId = new Guid("0693f766-70d8-4ba2-b048-5fc91ba79eb1"),
                             Number = 1
                         },
                         new
                         {
-                            Id = new Guid("0446d67d-2e72-4a36-996d-f3b394267566"),
-                            EducationDirectionId = new Guid("99c3f27c-cc25-48f5-adb5-944762dbac9d"),
+                            Id = new Guid("f59b5220-b594-4aff-84f1-abfc4e3a7f72"),
+                            EducationDirectionId = new Guid("0693f766-70d8-4ba2-b048-5fc91ba79eb1"),
                             Number = 2
                         });
                 });
@@ -379,122 +379,122 @@ namespace StudentFileManagment.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7a3cc152-0027-4753-a0ae-dc561992d484"),
-                            CourceId = new Guid("019e8657-782f-4ed6-9022-2c7d3fba9f61"),
+                            Id = new Guid("db58df59-318b-42f3-a58e-300b8711a953"),
+                            CourceId = new Guid("2f989096-0137-4948-ade8-8fccf143f482"),
                             Number = 1
                         },
                         new
                         {
-                            Id = new Guid("94ccf727-0fc5-48f9-8f1c-4f1f594efc7e"),
-                            CourceId = new Guid("019e8657-782f-4ed6-9022-2c7d3fba9f61"),
+                            Id = new Guid("b7042103-a763-41b6-82dc-af603e46e34a"),
+                            CourceId = new Guid("2f989096-0137-4948-ade8-8fccf143f482"),
                             Number = 2
                         },
                         new
                         {
-                            Id = new Guid("0d4030d5-dd4f-46d9-983c-1f7b2c66533b"),
-                            CourceId = new Guid("4990bf26-a836-406b-96eb-7b1da4f6acd0"),
+                            Id = new Guid("9a3f10eb-a7c9-4d51-90ec-ad213ccfe969"),
+                            CourceId = new Guid("8ae9dd08-68ac-4919-8a2d-e70158d71989"),
                             Number = 1
                         },
                         new
                         {
-                            Id = new Guid("cac7fee5-cb3c-4a4b-bd07-d1d0f819c98a"),
-                            CourceId = new Guid("4990bf26-a836-406b-96eb-7b1da4f6acd0"),
+                            Id = new Guid("e63ed2de-40fd-4c84-8401-7429ef8dac40"),
+                            CourceId = new Guid("8ae9dd08-68ac-4919-8a2d-e70158d71989"),
                             Number = 2
                         },
                         new
                         {
-                            Id = new Guid("59dfc402-039d-4fc8-91d1-59ccf0cc62cd"),
-                            CourceId = new Guid("d385d4ca-7033-45d2-90c7-bc818732ba26"),
+                            Id = new Guid("cb1438dc-d378-453b-9bcb-f5eaf9d52461"),
+                            CourceId = new Guid("e90c0d77-6e23-4f45-a1d8-37c27c44a263"),
                             Number = 1
                         },
                         new
                         {
-                            Id = new Guid("1e605be8-0c89-4ee2-93c3-8da83478d80c"),
-                            CourceId = new Guid("d385d4ca-7033-45d2-90c7-bc818732ba26"),
+                            Id = new Guid("89bf6756-35fe-465c-bc94-65859c8e0e2c"),
+                            CourceId = new Guid("e90c0d77-6e23-4f45-a1d8-37c27c44a263"),
                             Number = 2
                         },
                         new
                         {
-                            Id = new Guid("e9916923-abd8-4cba-b0b3-3e2e9b160bca"),
-                            CourceId = new Guid("e327543f-40b0-4cd6-9500-98e7e0d64170"),
+                            Id = new Guid("66522245-f2e7-4f1d-b923-1a5c3d50d5b6"),
+                            CourceId = new Guid("f035deef-036b-4121-8e7e-ceea31a5e79c"),
                             Number = 1
                         },
                         new
                         {
-                            Id = new Guid("53b228dc-8094-41f4-a793-372b350a4d1f"),
-                            CourceId = new Guid("e327543f-40b0-4cd6-9500-98e7e0d64170"),
+                            Id = new Guid("9d3251e5-e7c9-4a67-915d-1ce8cc781264"),
+                            CourceId = new Guid("f035deef-036b-4121-8e7e-ceea31a5e79c"),
                             Number = 2
                         },
                         new
                         {
-                            Id = new Guid("de775b18-1457-4907-a6fe-c675bcecf68e"),
-                            CourceId = new Guid("c0b5c432-9272-43ce-b929-479a73c8378a"),
+                            Id = new Guid("b17bfb4a-9a9a-44b6-a31e-09026e119b9c"),
+                            CourceId = new Guid("1137c747-cef6-4427-9df4-3770b341ff8e"),
                             Number = 1
                         },
                         new
                         {
-                            Id = new Guid("215690c2-b086-46ee-8f04-de954581c69d"),
-                            CourceId = new Guid("c0b5c432-9272-43ce-b929-479a73c8378a"),
+                            Id = new Guid("78b457f0-4c73-49ab-8910-0a80f293c4cb"),
+                            CourceId = new Guid("1137c747-cef6-4427-9df4-3770b341ff8e"),
                             Number = 2
                         },
                         new
                         {
-                            Id = new Guid("18fff53b-4b99-4e1d-a77f-327a00303d98"),
-                            CourceId = new Guid("2008622c-d216-46f2-9ba8-85818c58830c"),
+                            Id = new Guid("3ca4887a-3e10-4a33-8b6b-c59cb951ced4"),
+                            CourceId = new Guid("76067cb0-6dde-4b41-9c1d-f5a0f404f339"),
                             Number = 1
                         },
                         new
                         {
-                            Id = new Guid("2e6bb430-bf2b-420e-8d85-e33c973e9525"),
-                            CourceId = new Guid("2008622c-d216-46f2-9ba8-85818c58830c"),
+                            Id = new Guid("80cc7377-0064-4094-89ee-2b7d571deaf8"),
+                            CourceId = new Guid("76067cb0-6dde-4b41-9c1d-f5a0f404f339"),
                             Number = 2
                         },
                         new
                         {
-                            Id = new Guid("12ca5c70-019a-4e77-bdb4-24b2a2261259"),
-                            CourceId = new Guid("da81cc99-4753-4f69-9a12-f338cee686e8"),
+                            Id = new Guid("27b008d5-d7db-448b-90e7-a9bdd5342e96"),
+                            CourceId = new Guid("71edbd03-980f-48c4-a524-ff551439cf09"),
                             Number = 1
                         },
                         new
                         {
-                            Id = new Guid("2e5e31c6-2706-4d2d-ad3b-5d4bb49901a1"),
-                            CourceId = new Guid("da81cc99-4753-4f69-9a12-f338cee686e8"),
+                            Id = new Guid("f4ab845e-4944-412d-ada2-785644d73641"),
+                            CourceId = new Guid("71edbd03-980f-48c4-a524-ff551439cf09"),
                             Number = 2
                         },
                         new
                         {
-                            Id = new Guid("92a78185-7f5a-440d-950a-f7c13f4e746f"),
-                            CourceId = new Guid("b3279ac9-325e-4f06-9705-fe7300fd9c00"),
+                            Id = new Guid("66acc2a8-bfac-4887-9eac-720b4ddff95d"),
+                            CourceId = new Guid("6cac5cab-7f5f-4723-a1bc-a1b71d4400db"),
                             Number = 1
                         },
                         new
                         {
-                            Id = new Guid("f42d1acf-bc2a-48c3-b9f3-55e3915e3053"),
-                            CourceId = new Guid("b3279ac9-325e-4f06-9705-fe7300fd9c00"),
+                            Id = new Guid("2ef7f185-e57e-4c42-a5ca-913710df2f40"),
+                            CourceId = new Guid("6cac5cab-7f5f-4723-a1bc-a1b71d4400db"),
                             Number = 2
                         },
                         new
                         {
-                            Id = new Guid("ae9c04fd-13c7-4142-a437-e7c41876e722"),
-                            CourceId = new Guid("dee18e93-10e5-49bb-82fb-2bcdeb19b436"),
+                            Id = new Guid("4b097680-fd2d-4b9f-85d9-335aef8af587"),
+                            CourceId = new Guid("05fcba21-0f9a-4ac5-abb9-439e61172f53"),
                             Number = 1
                         },
                         new
                         {
-                            Id = new Guid("a5e2d638-c0e4-4f5a-ae61-ade72dcb045b"),
-                            CourceId = new Guid("dee18e93-10e5-49bb-82fb-2bcdeb19b436"),
+                            Id = new Guid("653c85a7-09e6-49ce-b6e5-66186fccb2b7"),
+                            CourceId = new Guid("05fcba21-0f9a-4ac5-abb9-439e61172f53"),
                             Number = 2
                         },
                         new
                         {
-                            Id = new Guid("2172952f-8ffd-48fc-84f4-778fac80f0c4"),
-                            CourceId = new Guid("0446d67d-2e72-4a36-996d-f3b394267566"),
+                            Id = new Guid("028631e4-df97-4571-8a89-e885bf66a064"),
+                            CourceId = new Guid("f59b5220-b594-4aff-84f1-abfc4e3a7f72"),
                             Number = 1
                         },
                         new
                         {
-                            Id = new Guid("bca8cbcb-5487-47bb-96ef-43d521ae4294"),
-                            CourceId = new Guid("0446d67d-2e72-4a36-996d-f3b394267566"),
+                            Id = new Guid("0467e573-8e83-47db-ad97-d918b8f9ffce"),
+                            CourceId = new Guid("f59b5220-b594-4aff-84f1-abfc4e3a7f72"),
                             Number = 2
                         });
                 });

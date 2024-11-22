@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using StudentFileManagement.Domain;
 using StudentFileManagment.Domain;
@@ -24,6 +25,8 @@ namespace StudentFileManagement.Infrastructure
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            optionsBuilder.ConfigureWarnings(warnings =>
+           warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
             optionsBuilder.UseNpgsql(configuration.GetConnectionString(DATABASE));
             optionsBuilder.EnableSensitiveDataLogging();
         }

@@ -223,24 +223,24 @@ namespace StudentFileManagment.Infrastructure.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("274f0879-81b2-48b9-8c83-563129a433b2"), "Магистратура" },
-                    { new Guid("b651de1c-b745-4acf-ac8f-b0b2c9a38ce5"), "СПО" },
-                    { new Guid("ca75b47d-168c-48ae-97b1-1d64fbd279c1"), "Бакалавриат" }
+                    { new Guid("044cebd7-281b-4125-9122-8f8b008d519d"), "Бакалавриат" },
+                    { new Guid("51389c89-8dd3-4122-9859-97dbae9a22b2"), "СПО" },
+                    { new Guid("fc38c983-80f2-4f8e-8549-03a129618d20"), "Магистратура" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Institutions",
                 columns: new[] { "Id", "Name" },
-                values: new object[] { new Guid("1258b06e-5775-4d50-b776-497a6056d3eb"), "ВГЛТУ" });
+                values: new object[] { new Guid("a14c2809-777d-4423-a1dd-0028f68065c0"), "ВГЛТУ" });
 
             migrationBuilder.InsertData(
                 table: "InstitutionAndEducations",
                 columns: new[] { "Id", "EducationId", "InstitutionId" },
                 values: new object[,]
                 {
-                    { new Guid("b1ab7cf2-e1e1-4e96-869c-f96b93c05534"), new Guid("ca75b47d-168c-48ae-97b1-1d64fbd279c1"), new Guid("1258b06e-5775-4d50-b776-497a6056d3eb") },
-                    { new Guid("c6646a66-5158-44df-b3e0-597cb4b94732"), new Guid("274f0879-81b2-48b9-8c83-563129a433b2"), new Guid("1258b06e-5775-4d50-b776-497a6056d3eb") },
-                    { new Guid("ebe01add-2ac1-43b4-8957-8e7e95726871"), new Guid("b651de1c-b745-4acf-ac8f-b0b2c9a38ce5"), new Guid("1258b06e-5775-4d50-b776-497a6056d3eb") }
+                    { new Guid("260b4008-3ec5-4595-ac9d-28cdc5edbd43"), new Guid("fc38c983-80f2-4f8e-8549-03a129618d20"), new Guid("a14c2809-777d-4423-a1dd-0028f68065c0") },
+                    { new Guid("b7dddae3-33e4-4b21-bf17-ca1671e7e197"), new Guid("51389c89-8dd3-4122-9859-97dbae9a22b2"), new Guid("a14c2809-777d-4423-a1dd-0028f68065c0") },
+                    { new Guid("c389974a-d01b-4654-8140-271b5faada06"), new Guid("044cebd7-281b-4125-9122-8f8b008d519d"), new Guid("a14c2809-777d-4423-a1dd-0028f68065c0") }
                 });
 
             migrationBuilder.InsertData(
@@ -248,9 +248,9 @@ namespace StudentFileManagment.Infrastructure.Migrations
                 columns: new[] { "Id", "InstitutionAndEducationId", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("0e15eb64-d669-4c14-b5e0-2e2e952c6520"), new Guid("b1ab7cf2-e1e1-4e96-869c-f96b93c05534"), "Информационные системы и программирование" },
-                    { new Guid("c20ec013-6c94-44d0-a290-ff5b3ddbe26e"), new Guid("c6646a66-5158-44df-b3e0-597cb4b94732"), "Информационные системы и программирование" },
-                    { new Guid("cc8dbf2f-e9c1-41dc-aedd-6fdfeec33997"), new Guid("ebe01add-2ac1-43b4-8957-8e7e95726871"), "Информационные системы и программирование" }
+                    { new Guid("0c158744-3d02-4b84-b384-d0e90532dce8"), new Guid("c389974a-d01b-4654-8140-271b5faada06"), "Информационные системы и программирование" },
+                    { new Guid("251ce3e0-c57b-4366-88b2-e2f59c78bcff"), new Guid("b7dddae3-33e4-4b21-bf17-ca1671e7e197"), "Информационные системы и программирование" },
+                    { new Guid("276cf8e0-9076-4557-b094-d6eb21ffe69e"), new Guid("260b4008-3ec5-4595-ac9d-28cdc5edbd43"), "Информационные системы и программирование" }
                 });
 
             migrationBuilder.InsertData(
@@ -258,16 +258,16 @@ namespace StudentFileManagment.Infrastructure.Migrations
                 columns: new[] { "Id", "EducationDirectionId", "Number" },
                 values: new object[,]
                 {
-                    { new Guid("18398daa-9149-429a-a761-e6c76eb65dd8"), new Guid("0e15eb64-d669-4c14-b5e0-2e2e952c6520"), 3 },
-                    { new Guid("1e30bf01-c0ef-4c23-91ab-fd8ec9e461f2"), new Guid("0e15eb64-d669-4c14-b5e0-2e2e952c6520"), 4 },
-                    { new Guid("3bec3d2f-4b29-490a-84a9-a104ba4219d9"), new Guid("cc8dbf2f-e9c1-41dc-aedd-6fdfeec33997"), 3 },
-                    { new Guid("89013fb3-ace7-4bd1-bca1-abee97e7e753"), new Guid("cc8dbf2f-e9c1-41dc-aedd-6fdfeec33997"), 2 },
-                    { new Guid("9f47b622-69fc-4414-a710-325364ce4e4e"), new Guid("cc8dbf2f-e9c1-41dc-aedd-6fdfeec33997"), 1 },
-                    { new Guid("aaacbb53-40a6-46b6-9557-be8c85a6354c"), new Guid("c20ec013-6c94-44d0-a290-ff5b3ddbe26e"), 1 },
-                    { new Guid("c4fcc62f-ae61-41da-aded-db3ca03eb63f"), new Guid("0e15eb64-d669-4c14-b5e0-2e2e952c6520"), 2 },
-                    { new Guid("f7dc0e37-864d-4de0-b686-7cda0f64717f"), new Guid("0e15eb64-d669-4c14-b5e0-2e2e952c6520"), 1 },
-                    { new Guid("f9f83d43-940b-4aba-ad57-8b3cd0044c51"), new Guid("c20ec013-6c94-44d0-a290-ff5b3ddbe26e"), 2 },
-                    { new Guid("fdfc575f-377b-4f5b-98e5-aff7363b9800"), new Guid("cc8dbf2f-e9c1-41dc-aedd-6fdfeec33997"), 4 }
+                    { new Guid("076d4b72-6a32-4c6a-86b2-196bb9928684"), new Guid("251ce3e0-c57b-4366-88b2-e2f59c78bcff"), 3 },
+                    { new Guid("0abc8fa6-9cf7-47d4-b37f-67d592816c4c"), new Guid("251ce3e0-c57b-4366-88b2-e2f59c78bcff"), 1 },
+                    { new Guid("1fbe9a06-f817-4a18-aa60-cfc623557870"), new Guid("276cf8e0-9076-4557-b094-d6eb21ffe69e"), 1 },
+                    { new Guid("25be2015-83fd-48cf-998e-a5e52d40a898"), new Guid("251ce3e0-c57b-4366-88b2-e2f59c78bcff"), 4 },
+                    { new Guid("3c48b7cf-bf44-454c-b1a8-5ee58d8126ea"), new Guid("0c158744-3d02-4b84-b384-d0e90532dce8"), 4 },
+                    { new Guid("5385ad07-1484-468e-a29b-7286e4f83699"), new Guid("0c158744-3d02-4b84-b384-d0e90532dce8"), 2 },
+                    { new Guid("7b542ff7-7bbb-4b5c-ba28-55964a284287"), new Guid("0c158744-3d02-4b84-b384-d0e90532dce8"), 3 },
+                    { new Guid("884296c9-3384-48e6-b470-88bc5bb9e1d2"), new Guid("0c158744-3d02-4b84-b384-d0e90532dce8"), 1 },
+                    { new Guid("ba5e974b-f9af-4dec-a042-a55d7b9fde5a"), new Guid("276cf8e0-9076-4557-b094-d6eb21ffe69e"), 2 },
+                    { new Guid("df748829-6c5e-403c-8fa6-aeb9ace42ade"), new Guid("251ce3e0-c57b-4366-88b2-e2f59c78bcff"), 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -275,32 +275,32 @@ namespace StudentFileManagment.Infrastructure.Migrations
                 columns: new[] { "Id", "CourceId", "Number" },
                 values: new object[,]
                 {
-                    { new Guid("001e0d09-5a70-4f5d-bef5-155d5699fa72"), new Guid("9f47b622-69fc-4414-a710-325364ce4e4e"), 1 },
-                    { new Guid("01b2e251-7fd0-4072-a0ab-92d8bba89aea"), new Guid("f9f83d43-940b-4aba-ad57-8b3cd0044c51"), 2 },
-                    { new Guid("149ca383-7e54-422d-966c-217f35198b67"), new Guid("3bec3d2f-4b29-490a-84a9-a104ba4219d9"), 1 },
-                    { new Guid("16e34bd1-ed4b-418f-bcc4-d55d15508989"), new Guid("3bec3d2f-4b29-490a-84a9-a104ba4219d9"), 2 },
-                    { new Guid("177505d5-33a0-433a-8240-dbd8e5d34fce"), new Guid("1e30bf01-c0ef-4c23-91ab-fd8ec9e461f2"), 1 },
-                    { new Guid("1a51ccf0-4763-4317-afa2-0ebdb96ebe52"), new Guid("c4fcc62f-ae61-41da-aded-db3ca03eb63f"), 1 },
-                    { new Guid("1d39b470-e65f-4901-856c-239c8703e55a"), new Guid("18398daa-9149-429a-a761-e6c76eb65dd8"), 1 },
-                    { new Guid("51ba16df-e980-4ce3-8da0-a85f24b58f82"), new Guid("f7dc0e37-864d-4de0-b686-7cda0f64717f"), 1 },
-                    { new Guid("65d0f32a-01ce-4a1c-9591-3fe89f15c0dc"), new Guid("89013fb3-ace7-4bd1-bca1-abee97e7e753"), 2 },
-                    { new Guid("6e0fc074-6235-4b26-9f55-614495ad7701"), new Guid("fdfc575f-377b-4f5b-98e5-aff7363b9800"), 1 },
-                    { new Guid("784f28db-1c82-493b-97b0-eaf1373438eb"), new Guid("aaacbb53-40a6-46b6-9557-be8c85a6354c"), 2 },
-                    { new Guid("81380f51-1feb-45ab-a94b-fba33eb7d47b"), new Guid("f7dc0e37-864d-4de0-b686-7cda0f64717f"), 2 },
-                    { new Guid("82dbe600-3f09-4cda-b262-3d4a7891bd01"), new Guid("18398daa-9149-429a-a761-e6c76eb65dd8"), 2 },
-                    { new Guid("950628e0-e89d-4d41-9cee-819bf0f951f2"), new Guid("aaacbb53-40a6-46b6-9557-be8c85a6354c"), 1 },
-                    { new Guid("a0edf15d-da2c-4e46-bc00-99db87094634"), new Guid("f9f83d43-940b-4aba-ad57-8b3cd0044c51"), 1 },
-                    { new Guid("a7cf52c3-d18f-4c75-8f6f-857f36be1985"), new Guid("fdfc575f-377b-4f5b-98e5-aff7363b9800"), 2 },
-                    { new Guid("a9c22a4f-b126-48fb-913e-9d209eb79979"), new Guid("c4fcc62f-ae61-41da-aded-db3ca03eb63f"), 2 },
-                    { new Guid("b1f89303-733e-4ffd-bba2-93f2591a4c61"), new Guid("1e30bf01-c0ef-4c23-91ab-fd8ec9e461f2"), 2 },
-                    { new Guid("e0879f37-6590-4be4-8012-2eac2f62e64c"), new Guid("9f47b622-69fc-4414-a710-325364ce4e4e"), 2 },
-                    { new Guid("e25ee8b8-ef5a-423d-819c-cb7a5862a9ae"), new Guid("89013fb3-ace7-4bd1-bca1-abee97e7e753"), 1 }
+                    { new Guid("0f681d4a-1b45-4512-81ae-2e6a558b7152"), new Guid("884296c9-3384-48e6-b470-88bc5bb9e1d2"), 2 },
+                    { new Guid("16e07640-3e7c-4670-bec8-0e74298e53b9"), new Guid("df748829-6c5e-403c-8fa6-aeb9ace42ade"), 1 },
+                    { new Guid("21502598-9d34-45a6-8374-b0dfab91583f"), new Guid("0abc8fa6-9cf7-47d4-b37f-67d592816c4c"), 1 },
+                    { new Guid("22808477-4703-4755-824a-62678b8949da"), new Guid("ba5e974b-f9af-4dec-a042-a55d7b9fde5a"), 1 },
+                    { new Guid("23e36c2b-0fcb-4a43-b8e0-5b3b5025da75"), new Guid("7b542ff7-7bbb-4b5c-ba28-55964a284287"), 2 },
+                    { new Guid("28a2bc22-0329-4037-acc5-e98b3277ff39"), new Guid("5385ad07-1484-468e-a29b-7286e4f83699"), 2 },
+                    { new Guid("3e9a1798-dd23-4f7b-a6f8-228d6b41c969"), new Guid("3c48b7cf-bf44-454c-b1a8-5ee58d8126ea"), 2 },
+                    { new Guid("6c46ca1f-bf53-4b18-9338-c01d3719cf78"), new Guid("df748829-6c5e-403c-8fa6-aeb9ace42ade"), 2 },
+                    { new Guid("7f9bdee2-c708-49af-9394-bc06469e386f"), new Guid("7b542ff7-7bbb-4b5c-ba28-55964a284287"), 1 },
+                    { new Guid("867eb6ac-c3b6-4d54-80a6-bafd8c7b14e6"), new Guid("884296c9-3384-48e6-b470-88bc5bb9e1d2"), 1 },
+                    { new Guid("87f2077a-4bf4-45b7-a1c7-3afbbd9794ec"), new Guid("3c48b7cf-bf44-454c-b1a8-5ee58d8126ea"), 1 },
+                    { new Guid("a2cf60a5-f297-45f4-82a0-be33c122b3cc"), new Guid("076d4b72-6a32-4c6a-86b2-196bb9928684"), 2 },
+                    { new Guid("a47c81b4-1f60-4c4c-8982-850e98d7b9fd"), new Guid("5385ad07-1484-468e-a29b-7286e4f83699"), 1 },
+                    { new Guid("a9dc4afe-14df-4718-8b51-dc8be277efab"), new Guid("1fbe9a06-f817-4a18-aa60-cfc623557870"), 1 },
+                    { new Guid("c82955e5-23e3-48ce-910a-8261f1c26eae"), new Guid("0abc8fa6-9cf7-47d4-b37f-67d592816c4c"), 2 },
+                    { new Guid("e1fc078d-e074-4d59-ad6a-e876ee97a1e5"), new Guid("1fbe9a06-f817-4a18-aa60-cfc623557870"), 2 },
+                    { new Guid("f9ef0c00-3900-4e42-87db-e5df9341bb68"), new Guid("25be2015-83fd-48cf-998e-a5e52d40a898"), 2 },
+                    { new Guid("fcf3ad5d-f143-4280-8314-32588a90337e"), new Guid("ba5e974b-f9af-4dec-a042-a55d7b9fde5a"), 2 },
+                    { new Guid("fe57d8b1-e4be-4718-b9db-76a74de311c6"), new Guid("25be2015-83fd-48cf-998e-a5e52d40a898"), 1 },
+                    { new Guid("ff78d5cc-ae6c-469d-971e-e4653ed4b0c3"), new Guid("076d4b72-6a32-4c6a-86b2-196bb9928684"), 1 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Subjects",
                 columns: new[] { "Id", "Name", "SemesterId" },
-                values: new object[] { new Guid("466a4243-8a73-4536-a5df-0c55bea46eba"), "Проектирование и дизайн информационных систем", new Guid("e25ee8b8-ef5a-423d-819c-cb7a5862a9ae") });
+                values: new object[] { new Guid("6845082a-cc42-466c-82b7-f98f5f12a512"), "Проектирование и дизайн информационных систем", new Guid("16e07640-3e7c-4670-bec8-0e74298e53b9") });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cources_EducationDirectionId",

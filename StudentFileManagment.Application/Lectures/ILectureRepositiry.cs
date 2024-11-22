@@ -9,5 +9,6 @@ namespace StudentFileManagment.Application.Lectures
         Task<Guid> Add(Lecture lecture, CancellationToken cancellationToken = default);
         Task<Result<Lecture, Error>> GetById(Guid id, CancellationToken cancellationToken = default);
         Task<Result<Lecture, Error>> GetByDate(DateOnly date, CancellationToken cancellationToken = default);
+        
     }
 }
